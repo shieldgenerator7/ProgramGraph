@@ -33,7 +33,7 @@ class Graph{
 
     removeEdge(edge){
         this.edgeList = this.edgeList.filter(
-            (e) => e.id !== edge.id;
+            (e) => e.id !== edge.id
         );
     }
 }
