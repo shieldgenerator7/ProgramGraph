@@ -1,0 +1,13 @@
+Text based, turn based Mech RPG
+
+Multiple mech types, including Humanoid and Pony mechs
+
+Managing multiple ressources to do actions - shields, generator, computing power, HP, Heat.
+
+Mechs are customizable, and can equip modular parts, as long as they function well together (energy consumption, weight limits, number of slots for weapons and accessories, etc.) Multiple weapon types.
+
+Adverse effects, such as EMP.
+
+Different levels of attack with weapons
+
+Command line and button controls
