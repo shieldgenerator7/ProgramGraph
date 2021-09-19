@@ -1,6 +1,7 @@
 "use strict";
 
 let data = new Data();
+let display;
 function initialize(){
     data.newGraph();
     let graph = data.graphList[0];
@@ -9,5 +10,8 @@ function initialize(){
     graph.addNode(node1);
     graph.addNode(node2);
     graph.addEdge(node1,node2);
+    display = new GraphDisplay(graph, $("cvsGraph"));
+    display.autoLayout();
+    display.draw();
 }
 initialize();
