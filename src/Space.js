@@ -37,4 +37,12 @@ class Space{
     convertY(gy){
         return (this.canvas.clientHeight - (gy + this.offset.y));
     }
+    //converts to canvas width
+    convertWidth(width){
+        return width;
+    }
+    //converts to canvas height
+    convertHeight(height){
+        return height;
+    }
 }

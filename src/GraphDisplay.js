@@ -32,8 +32,14 @@ class GraphDisplay{
         for(let edge of this.space.edgeList){
             if (!edge){continue;}
             this.ctx.beginPath();
-            this.ctx.moveTo(edge.from.position.x, edge.from.position.y);
-            this.ctx.lineTo(edge.to.position.x, edge.to.position.y);
+            this.ctx.moveTo(
+                this.space.convertX(edge.from.position.x),
+                this.space.convertY(edge.from.position.y)
+            );
+            this.ctx.lineTo(
+                this.space.convertX(edge.to.position.x),
+                this.space.convertY(edge.to.position.y)
+            );
             this.ctx.stroke();
         }
         //draw nodes
@@ -42,16 +48,16 @@ class GraphDisplay{
         for(let node of this.space.nodeList){
             if (!node){continue;}
             this.ctx.fillRect(
-                node.topLeft.x,
-                node.topLeft.y,
-                node.size.x,
-                node.size.y
+                this.space.convertX(node.topLeft.x),
+                this.space.convertY(node.topLeft.y),
+                this.space.convertWidth(node.size.x),
+                this.space.convertHeight(node.size.y)
             );
             this.ctx.strokeRect(
-                node.topLeft.x,
-                node.topLeft.y,
-                node.size.x,
-                node.size.y
+                this.space.convertX(node.topLeft.x),
+                this.space.convertY(node.topLeft.y),
+                this.space.convertWidth(node.size.x),
+                this.space.convertHeight(node.size.y)
             );
         }
     }
