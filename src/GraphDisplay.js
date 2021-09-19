@@ -27,6 +27,20 @@ class GraphDisplay{
 
     draw(){
         this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+        //draw temp edge
+        if (inputManager.tempEdge){
+            this.ctx.strokeStyle = "#33DD33";
+            this.ctx.beginPath();
+            this.ctx.moveTo(
+                this.space.convertX(inputManager.tempEdge.from.position.x),
+                this.space.convertY(inputManager.tempEdge.from.position.y)
+            );
+            this.ctx.lineTo(
+                this.space.convertX(inputManager.tempEdge.to.position.x),
+                this.space.convertY(inputManager.tempEdge.to.position.y)
+            );
+            this.ctx.stroke();
+        }
         //draw edges
         this.ctx.strokeStyle = "#000000";
         for(let edge of this.space.edgeList){
