@@ -24,7 +24,7 @@ class Graph{
     }
 
     addEdge(from, to){
-        _addEdge(new Edge(from, to));
+        this._addEdge(new Edge(from, to));
     }
 
     _addEdge(edge){

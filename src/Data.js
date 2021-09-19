@@ -8,11 +8,9 @@ class Data{
 
     newGraph(){
         let graph = new Graph();
-        graphList.push(graph);
+        this.graphList.push(graph);
     }
 }
-
-let data = new Data();
 
 let getNextId = function(){
     let thisId = data.nextId;
