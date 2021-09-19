@@ -13,6 +13,7 @@ class InputManager{
         };
         document.onmousedown = this.onMouseDown;
         document.onmouseup = this.onMouseUp;
+        document.ondblclick = this.onMouseDoubleClick;
     }
 
     onMouseMove(e){
@@ -58,5 +59,16 @@ class InputManager{
         if (inputManager.mouseOverNode){
             display.draw();
         }
+    }
+
+    onMouseDoubleClick(e){
+        let x = inputManager.space.convertFromX(e.x);
+        let y = inputManager.space.convertFromY(e.y);
+        let node = new Node();
+        display.space.graph.addNode(node);
+        let uiNode = new UINode(node);
+        display.space.nodeList[node.id] = uiNode;
+        uiNode.setPosition(x,y);
+        display.draw();
     }
 }
