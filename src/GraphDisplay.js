@@ -43,10 +43,13 @@ class GraphDisplay{
             this.ctx.stroke();
         }
         //draw nodes
-        this.ctx.fillStyle = "#AAAAAA";
         this.ctx.strokeStyle = "#000000";
         for(let node of this.space.nodeList){
             if (!node){continue;}
+            this.ctx.fillStyle = "#AAAAAA";
+            if (node===inputManager.mouseOverNode){
+                this.ctx.fillStyle = "#FF5555";
+            }
             this.ctx.fillRect(
                 this.space.convertX(node.topLeft.x),
                 this.space.convertY(node.topLeft.y),

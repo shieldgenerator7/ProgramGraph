@@ -45,4 +45,13 @@ class Space{
     convertHeight(height){
         return height;
     }
+
+    //converts from canvas x
+    convertFromX(cx){
+        return cx - this.offset.x;
+    }
+    //converts from canvas y
+    convertFromY(cy){
+        return -(cy - this.canvas.clientHeight) - this.offset.y;
+    }
 }

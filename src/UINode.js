@@ -23,4 +23,10 @@ class UINode{
         this.topLeft.x = x - this.size.x / 2;
         this.topLeft.y = y + this.size.y / 2;
     }
+
+    //true if the given position is within the bounds of the node
+    inBounds(x, y){
+        return x >= this.topLeft.x && x <= this.topLeft.x + this.size.x
+            && y <= this.topLeft.y && y >= this.topLeft.y - this.size.y;
+    }
 }
