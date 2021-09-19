@@ -27,6 +27,11 @@ class GraphDisplay{
 
     draw(){
         this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+        //draw temp tutorial text
+        this.ctx.fillStyle = "#000000";
+        this.ctx.font = "15px Consolas";
+        this.ctx.fillText("Double click: Add Node",10,20);
+        this.ctx.fillText("Right click + Drag: Add Edge",10,40);
         //draw temp edge
         if (inputManager.tempEdge){
             this.ctx.strokeStyle = "#33DD33";
