@@ -61,8 +61,13 @@ class GraphDisplay{
         for(let node of this.space.nodeList){
             if (!node){continue;}
             this.ctx.fillStyle = "#AAAAAA";
-            if (node===inputManager.mouseOverNode){
-                this.ctx.fillStyle = "#FF5555";
+            if (node===inputManager.mouseOverNode || node===inputManager.mouseRightClickNode){
+                if (inputManager.mouseRightClickNode){
+                    this.ctx.fillStyle = "#33DD33";
+                }
+                else{
+                    this.ctx.fillStyle = "#5555FF";
+                }
             }
             this.ctx.fillRect(
                 this.space.convertX(node.topLeft.x),
