@@ -21,6 +21,6 @@ class UINode{
         this.position.x = x;
         this.position.y = y;
         this.topLeft.x = x - this.size.x / 2;
-        this.topLeft.y = y - this.size.y / 2;
+        this.topLeft.y = y + this.size.y / 2;
     }
 }

@@ -1,7 +1,8 @@
 "use strict";
 
 class Space{
-    constructor(canvas){
+    constructor(graph, canvas){
+        this.graph = graph;
         this.canvas = canvas;
         this.offset = {
             x: 0,
@@ -12,6 +13,20 @@ class Space{
             y: 100
         };
         this.zoomScale = 1;
+        //
+        //Node and Edges
+        //
+        this.nodeList = [];
+        this.edgeList = [];
+        //Populate node and edge lists from graph
+        for(let node of graph.nodeList){
+            let uiNode = new UINode(node);
+            this.nodeList[node.id] = uiNode;
+        }
+        for(let edge of graph.edgeList){
+            let uiEdge = new UIEdge(edge, this.nodeList[edge.fromId] ,this.nodeList[edge.toId]);
+            this.edgeList[edge.id] = uiEdge;
+        }
     }
 
     //converts to canvas x
