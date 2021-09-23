@@ -9,10 +9,6 @@ class InputManager{
         this.mouseClick = false;
         this.mouseRightClickNode = undefined;
         this.tempEdge = undefined;
-        this.clickOffset = {
-            x:0,
-            y:0
-        };
         document.onmousedown = this.onMouseDown;
         document.onmouseup = this.onMouseUp;
         document.ondblclick = this.onMouseDoubleClick;
@@ -22,10 +18,12 @@ class InputManager{
         let x = inputManager.space.convertFromX(e.x);
         let y = inputManager.space.convertFromY(e.y);
         if (inputManager.mouseClick){
-            inputManager.mouseOverNode.setPosition(
-                x + inputManager.clickOffset.x,
-                y + inputManager.clickOffset.y
-            );
+            for(let node of inputManager.space.selection.selectedNodes){
+                node.setPosition(
+                    x + node.mouseOffset.x,
+                    y + node.mouseOffset.y
+                );
+            }
             display.draw();
         }
         else{
@@ -64,15 +62,18 @@ class InputManager{
                 };
             }
             else{//LMB
-                inputManager.clickOffset.x = inputManager.mouseOverNode.position.x - x;
-                inputManager.clickOffset.y = inputManager.mouseOverNode.position.y - y;
                 inputManager.mouseClick = true;
-                if (e.shiftKey){
-                    inputManager.space.selection.selectNodeToo(inputManager.mouseOverNode);
+                //Select node if not selected
+                if (!inputManager.space.selection.isNodeSelected(inputManager.mouseOverNode)){
+                    if (e.shiftKey){
+                        inputManager.space.selection.selectNodeToo(inputManager.mouseOverNode);
+                    }
+                    else{
+                        inputManager.space.selection.selectNode(inputManager.mouseOverNode);
+                    }
                 }
-                else{
-                    inputManager.space.selection.selectNode(inputManager.mouseOverNode);
-                }
+                //Calculate offsets in preparation for move
+                inputManager.calculateNodeOffsets(x,y);
             }
         }
         else{
@@ -115,5 +116,11 @@ class InputManager{
         inputManager.mouseOverNode = uiNode;
         inputManager.space.selection.selectNode(uiNode);
         display.draw();
+    }
+
+    calculateNodeOffsets(gx, gy){
+        for(let node of inputManager.space.selection.selectedNodes){
+            node.calculateMouseOffset(gx, gy);
+        }
     }
 }

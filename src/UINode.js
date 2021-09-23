@@ -29,4 +29,12 @@ class UINode{
         return x >= this.topLeft.x && x <= this.topLeft.x + this.size.x
             && y <= this.topLeft.y && y >= this.topLeft.y - this.size.y;
     }
+
+    //prepares the node for being moved
+    calculateMouseOffset(gx, gy){
+        this.mouseOffset = {
+            x: this.position.x - gx,
+            y: this.position.y - gy
+        };
+    }
 }
