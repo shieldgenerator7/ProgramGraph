@@ -31,8 +31,15 @@ class GraphDisplay{
         this.ctx.fillStyle = "#000000";
         this.ctx.lineWidth = 2;
         this.ctx.font = "15px Consolas";
-        this.ctx.fillText("Double click: Add Node",10,20);
-        this.ctx.fillText("Right click + Drag: Add Edge",10,40);
+        let instructions = [
+            "Double click: Add Node",
+            "Right click + Drag: Add Edge",
+            "Click: Select Node",
+            "Shift click: Multiselect Node",
+        ];
+        for(let i = 0; i < instructions.length; i++){
+            this.ctx.fillText(instructions[i],10,20+i*20);
+        }
         //draw temp edge
         if (inputManager.tempEdgeList.length > 0){
             for(let tempEdge of inputManager.tempEdgeList){
