@@ -104,6 +104,7 @@ class InputManager{
         let uiNode = new UINode(node);
         display.space.nodeList[node.id] = uiNode;
         uiNode.setPosition(x,y);
+        inputManager.mouseOverNode = uiNode;
         display.draw();
     }
 }
