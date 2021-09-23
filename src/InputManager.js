@@ -56,6 +56,7 @@ class InputManager{
         if (inputManager.mouseOverNode){
             if (e.which == 3){//RMB
                 inputManager.mouseRightClick = true;
+                inputManager.setSelectedNode(inputManager.mouseOverNode, e.shiftKey);
                 for(let node of inputManager.space.selection.selectedNodes){
                     let tempEdge = new UIEdge(undefined, node, undefined);
                     tempEdge.to = {};
@@ -69,14 +70,7 @@ class InputManager{
             else{//LMB
                 inputManager.mouseClick = true;
                 //Select node if not selected
-                if (!inputManager.space.selection.isNodeSelected(inputManager.mouseOverNode)){
-                    if (e.shiftKey){
-                        inputManager.space.selection.selectNodeToo(inputManager.mouseOverNode);
-                    }
-                    else{
-                        inputManager.space.selection.selectNode(inputManager.mouseOverNode);
-                    }
-                }
+                inputManager.setSelectedNode(inputManager.mouseOverNode, e.shiftKey);
                 //Calculate offsets in preparation for move
                 inputManager.calculateNodeOffsets(x,y);
             }
@@ -123,6 +117,17 @@ class InputManager{
         inputManager.mouseOverNode = uiNode;
         inputManager.space.selection.selectNode(uiNode);
         display.draw();
+    }
+
+    setSelectedNode(node, shift){
+        if (!inputManager.space.selection.isNodeSelected(node)){
+            if (shift){
+                inputManager.space.selection.selectNodeToo(node);
+            }
+            else{
+                inputManager.space.selection.selectNode(node);
+            }
+        }
     }
 
     calculateNodeOffsets(gx, gy){
