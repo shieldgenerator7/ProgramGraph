@@ -7,8 +7,8 @@ class InputManager{
         this.mouseOverNode = undefined;
         document.onmousemove = this.onMouseMove;
         this.mouseClick = false;
-        this.mouseRightClickNode = undefined;
-        this.tempEdge = undefined;
+        this.mouseRightClick = false;
+        this.tempEdgeList = [];
         document.onmousedown = this.onMouseDown;
         document.onmouseup = this.onMouseUp;
         document.ondblclick = this.onMouseDoubleClick;
@@ -41,9 +41,11 @@ class InputManager{
                 display.draw();
             }
         }
-        if (inputManager.mouseRightClickNode){
-            inputManager.tempEdge.to.position.x = x;
-            inputManager.tempEdge.to.position.y = y;
+        if (inputManager.mouseRightClick){
+            for(let tempEdge of inputManager.tempEdgeList){
+                tempEdge.to.position.x = x;
+                tempEdge.to.position.y = y;
+            }
             display.draw();
         }
     }
@@ -53,13 +55,16 @@ class InputManager{
         let y = inputManager.space.convertFromY(e.y);
         if (inputManager.mouseOverNode){
             if (e.which == 3){//RMB
-                inputManager.mouseRightClickNode = inputManager.mouseOverNode;
-                inputManager.tempEdge = new UIEdge(undefined, inputManager.mouseRightClickNode, undefined);
-                inputManager.tempEdge.to = {};
-                inputManager.tempEdge.to.position = {
-                    x: x,
-                    y: y
-                };
+                inputManager.mouseRightClick = true;
+                for(let node of inputManager.space.selection.selectedNodes){
+                    let tempEdge = new UIEdge(undefined, node, undefined);
+                    tempEdge.to = {};
+                    tempEdge.to.position = {
+                        x: x,
+                        y: y
+                    };
+                    inputManager.tempEdgeList.push(tempEdge);
+                }
             }
             else{//LMB
                 inputManager.mouseClick = true;
@@ -85,21 +90,23 @@ class InputManager{
     onMouseUp(e){
         inputManager.mouseClick = false;
         if (inputManager.mouseOverNode){
-            if (inputManager.mouseRightClickNode){
-                inputManager.tempEdge = undefined;
-                let edge = inputManager.space.graph.addEdge(
-                    inputManager.mouseRightClickNode.node,
-                    inputManager.mouseOverNode.node
-                );
+            if (inputManager.mouseRightClick){
+                inputManager.tempEdgeList = [];
+                for (let node of inputManager.space.selection.selectedNodes){
+                    let edge = inputManager.space.graph.addEdge(
+                        node.node,
+                        inputManager.mouseOverNode.node
+                    );
+                }
                 inputManager.space.syncFromGraph();
-                inputManager.mouseRightClickNode = undefined;
+                inputManager.mouseRightClick = false;
             }
             display.draw();
         }
         else{
-            if (inputManager.mouseRightClickNode){
-                inputManager.tempEdge = undefined;
-                inputManager.mouseRightClickNode = undefined;
+            if (inputManager.mouseRightClick){
+                inputManager.tempEdgeList = [];
+                inputManager.mouseRightClick = false;
                 display.draw();
             }
         }

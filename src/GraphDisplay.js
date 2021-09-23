@@ -34,18 +34,20 @@ class GraphDisplay{
         this.ctx.fillText("Double click: Add Node",10,20);
         this.ctx.fillText("Right click + Drag: Add Edge",10,40);
         //draw temp edge
-        if (inputManager.tempEdge){
-            this.ctx.strokeStyle = "#33DD33";
-            this.ctx.beginPath();
-            this.ctx.moveTo(
-                this.space.convertX(inputManager.tempEdge.from.position.x),
-                this.space.convertY(inputManager.tempEdge.from.position.y)
-            );
-            this.ctx.lineTo(
-                this.space.convertX(inputManager.tempEdge.to.position.x),
-                this.space.convertY(inputManager.tempEdge.to.position.y)
-            );
-            this.ctx.stroke();
+        if (inputManager.tempEdgeList.length > 0){
+            for(let tempEdge of inputManager.tempEdgeList){
+                this.ctx.strokeStyle = "#33DD33";
+                this.ctx.beginPath();
+                this.ctx.moveTo(
+                    this.space.convertX(tempEdge.from.position.x),
+                    this.space.convertY(tempEdge.from.position.y)
+                );
+                this.ctx.lineTo(
+                    this.space.convertX(tempEdge.to.position.x),
+                    this.space.convertY(tempEdge.to.position.y)
+                );
+                this.ctx.stroke();
+            }
         }
         //draw edges
         this.ctx.strokeStyle = "#000000";
