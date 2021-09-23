@@ -81,8 +81,7 @@ class InputManager{
                     inputManager.mouseRightClickNode.node,
                     inputManager.mouseOverNode.node
                 );
-                let uiEdge = new UIEdge(edge, inputManager.mouseRightClickNode, inputManager.mouseOverNode);
-                inputManager.space.edgeList[edge.id] = uiEdge;
+                inputManager.space.syncFromGraph();
                 inputManager.mouseRightClickNode = undefined;
             }
             display.draw();
@@ -101,8 +100,8 @@ class InputManager{
         let y = inputManager.space.convertFromY(e.y);
         let node = new Node();
         display.space.graph.addNode(node);
-        let uiNode = new UINode(node);
-        display.space.nodeList[node.id] = uiNode;
+        let newNodes = inputManager.space.syncFromGraph();
+        let uiNode = newNodes[0];
         uiNode.setPosition(x,y);
         inputManager.mouseOverNode = uiNode;
         display.draw();

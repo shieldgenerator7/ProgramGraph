@@ -18,15 +18,48 @@ class Space{
         //
         this.nodeList = [];
         this.edgeList = [];
+        this.syncFromGraph();
+    }
+
+    //Update the list of nodes and edges from the graph
+    //Does NOT start clear the ui lists first
+    syncFromGraph(){
+        //Remove deleted nodes
+        for(let uiNode of this.nodeList){
+            if (!uiNode){continue;}
+            let nodeId = uiNode.node.id;
+            if (!this.graph.nodeList.some((node)=>node.id == nodeId)){
+                this.nodeList = this.nodeList.filter(
+                    (n) => n !== nodeId
+                )
+            }
+        }
+        //Remove deleted edges
+        for(let uiEdge of this.edgeList){
+            if (!uiEdge){continue;}
+            let edgeId = uiEdge.edge.id;
+            if (!this.graph.edgeList.some((edge)=>edge.id == edgeId)){
+                this.edgeList = this.edgeList.filter(
+                    (e) => e !== edgeId
+                )
+            }
+        }
         //Populate node and edge lists from graph
-        for(let node of graph.nodeList){
-            let uiNode = new UINode(node);
-            this.nodeList[node.id] = uiNode;
+        let newNodes = [];
+        for(let node of this.graph.nodeList){
+            if (!this.nodeList[node.id]){
+                let uiNode = new UINode(node);
+                this.nodeList[node.id] = uiNode;
+                newNodes.push(uiNode);
+            }
         }
-        for(let edge of graph.edgeList){
-            let uiEdge = new UIEdge(edge, this.nodeList[edge.fromId] ,this.nodeList[edge.toId]);
-            this.edgeList[edge.id] = uiEdge;
+        for(let edge of this.graph.edgeList){
+            if (!this.edgeList[edge.id]){
+                let uiEdge = new UIEdge(edge, this.nodeList[edge.fromId], this.nodeList[edge.toId]);
+                this.edgeList[edge.id] = uiEdge;
+            }
         }
+        return newNodes;
     }
 
     //converts to canvas x
