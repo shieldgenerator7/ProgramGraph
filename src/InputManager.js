@@ -115,7 +115,7 @@ class InputManager{
         let uiNode = newNodes[0];
         uiNode.setPosition(x,y);
         inputManager.mouseOverNode = uiNode;
-        inputManager.space.selection.selectNode(uiNode);
+        inputManager.setSelectedNode(uiNode, e.shiftKey);
         display.draw();
     }
 
