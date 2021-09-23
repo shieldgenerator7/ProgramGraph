@@ -29,6 +29,7 @@ class GraphDisplay{
         this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
         //draw temp tutorial text
         this.ctx.fillStyle = "#000000";
+        this.ctx.lineWidth = 2;
         this.ctx.font = "15px Consolas";
         this.ctx.fillText("Double click: Add Node",10,20);
         this.ctx.fillText("Right click + Drag: Add Edge",10,40);
@@ -62,9 +63,9 @@ class GraphDisplay{
             this.ctx.stroke();
         }
         //draw nodes
-        this.ctx.strokeStyle = "#000000";
         for(let node of this.space.nodeList){
             if (!node){continue;}
+            this.ctx.strokeStyle = "#000000";
             this.ctx.fillStyle = "#AAAAAA";
             if (node===inputManager.mouseOverNode || node===inputManager.mouseRightClickNode){
                 if (inputManager.mouseRightClickNode){
@@ -73,6 +74,9 @@ class GraphDisplay{
                 else{
                     this.ctx.fillStyle = "#5555FF";
                 }
+            }
+            if (inputManager.space.selection.isNodeSelected(node)){
+                this.ctx.strokeStyle = "#FF5555";
             }
             this.ctx.fillRect(
                 this.space.convertX(node.topLeft.x),

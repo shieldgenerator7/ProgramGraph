@@ -19,6 +19,8 @@ class Space{
         this.nodeList = [];
         this.edgeList = [];
         this.syncFromGraph();
+        //Selection
+        this.selection = new Selection();
     }
 
     //Update the list of nodes and edges from the graph

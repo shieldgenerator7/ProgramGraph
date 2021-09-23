@@ -67,9 +67,18 @@ class InputManager{
                 inputManager.clickOffset.x = inputManager.mouseOverNode.position.x - x;
                 inputManager.clickOffset.y = inputManager.mouseOverNode.position.y - y;
                 inputManager.mouseClick = true;
+                if (e.shiftKey){
+                    inputManager.space.selection.selectNodesToo(inputManager.mouseOverNode);
+                }
+                else{
+                    inputManager.space.selection.selectNodes(inputManager.mouseOverNode);
+                }
             }
-            display.draw();
         }
+        else{
+            inputManager.space.selection.selectNodes();
+        }
+        display.draw();
     }
 
     onMouseUp(e){
@@ -104,6 +113,7 @@ class InputManager{
         let uiNode = newNodes[0];
         uiNode.setPosition(x,y);
         inputManager.mouseOverNode = uiNode;
+        inputManager.space.selection.selectNodes(uiNode);
         display.draw();
     }
 }
