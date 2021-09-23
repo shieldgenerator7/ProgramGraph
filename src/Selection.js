@@ -6,25 +6,25 @@ class Selection{
         this.selectedEdges = [];
     }
 
-    selectNodes(...nodes){
+    selectNode(node){
         this.clearSelection();
-        this.selectNodesToo(nodes);
+        this.selectNodeToo(node);
     }
 
-    selectNodesToo(...nodes){
-        if (nodes[0].length > 0){
-            this.selectedNodes = this.selectedNodes.concat(nodes[0]);
+    selectNodeToo(node){
+        if (node){
+            this.selectedNodes.push(node);
         }
     }
 
-    selectEdges(...edges){
+    selectEdge(edge){
         this.clearSelection();
-        this.selectEdgesToo(edges);
+        this.selectEdgeToo(edge);
     }
 
-    selectEdgesToo(...edges){
-        if (edges[0].length > 0){
-            this.selectedEdges = this.selectedEdges.concat(edges[0]);
+    selectEdgeToo(edge){
+        if (edge){
+            this.selectedEdges.push(edge);
         }
     }
 
