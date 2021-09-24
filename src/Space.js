@@ -1,9 +1,9 @@
 "use strict";
 
 class Space{
-    constructor(graph, canvas){
-        this.graph = graph;
-        this.canvas = canvas;
+    constructor(panel){
+        this.graph = panel.graph;
+        this.canvas = panel.canvas;
         this.offset = new Vector2(0,0);
         this.size = new Vector2(100,100);
         this.zoomScale = 1;

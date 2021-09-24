@@ -1,8 +1,9 @@
 "use strict";
 
 class InputManager{
-    constructor(space){
-        this.space = space;
+    constructor(panel){
+        this.panel = panel;
+        this.space = panel.space;
         console.log("space: "+this.space);
         this.mouseOverNode = undefined;
         document.onmousemove = this.onMouseMove;
@@ -17,7 +18,7 @@ class InputManager{
     onMouseMove(e){
         let gv = inputManager.space.convertFromPosition(e);
         if (inputManager.mouseClick){
-            for(let node of inputManager.space.selection.selectedNodes){
+            for(let node of inputManager.panel.selection.selectedNodes){
                 node.setPosition(gv.add(node.mouseOffset));
             }
             display.draw();
@@ -51,7 +52,7 @@ class InputManager{
             if (e.which == 3){//RMB
                 inputManager.mouseRightClick = true;
                 inputManager.setSelectedNode(inputManager.mouseOverNode, e.shiftKey);
-                for(let node of inputManager.space.selection.selectedNodes){
+                for(let node of inputManager.panel.selection.selectedNodes){
                     let tempEdge = new UIEdge(undefined, node, undefined);
                     tempEdge.to = {};
                     tempEdge.to.position = gv;
@@ -67,7 +68,7 @@ class InputManager{
             }
         }
         else{
-            inputManager.space.selection.selectNode();
+            inputManager.panel.selection.selectNode();
         }
         display.draw();
     }
@@ -77,7 +78,7 @@ class InputManager{
         if (inputManager.mouseOverNode){
             if (inputManager.mouseRightClick){
                 inputManager.tempEdgeList = [];
-                for (let node of inputManager.space.selection.selectedNodes){
+                for (let node of inputManager.panel.selection.selectedNodes){
                     let edge = inputManager.space.graph.addEdge(
                         node.node,
                         inputManager.mouseOverNode.node
@@ -110,18 +111,18 @@ class InputManager{
     }
 
     setSelectedNode(node, shift){
-        if (!inputManager.space.selection.isNodeSelected(node)){
+        if (!inputManager.panel.selection.isNodeSelected(node)){
             if (shift){
-                inputManager.space.selection.selectNodeToo(node);
+                inputManager.panel.selection.selectNodeToo(node);
             }
             else{
-                inputManager.space.selection.selectNode(node);
+                inputManager.panel.selection.selectNode(node);
             }
         }
     }
 
     calculateNodeOffsets(gv){
-        for(let node of inputManager.space.selection.selectedNodes){
+        for(let node of inputManager.panel.selection.selectedNodes){
             node.calculateMouseOffset(gv);
         }
     }

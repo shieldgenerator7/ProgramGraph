@@ -1,6 +1,7 @@
 "use strict";
 
 let data = new Data();
+let panel;
 let display;
 let inputManager;
 function initialize(){
@@ -16,12 +17,10 @@ function initialize(){
     graph.addNode(node1);
     graph.addNode(node2);
     graph.addEdge(node1,node2);
-    //Init space
-    let space = new Space(graph, canvas);
-    //Init input
-    inputManager = new InputManager(space);
-    //Init display
-    display = new GraphDisplay(space);
+    //Init panel
+    panel = new Panel(graph, canvas);
+    display = panel.display;
+    inputManager = panel.input;
     display.autoLayout();
     display.draw();
 }

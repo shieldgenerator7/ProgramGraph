@@ -3,11 +3,12 @@
 //In charge of displaying its assigned graph
 
 class GraphDisplay{
-    constructor(space){
-        this.space = space;
-        this.graph = space.graph;
-        this.canvas = space.canvas;
-        this.ctx = space.canvas.getContext("2d");
+    constructor(panel){
+        this.panel = panel;
+        this.space = panel.space;
+        this.graph = panel.graph;
+        this.canvas = panel.canvas;
+        this.ctx = panel.canvas.getContext("2d");
     }
 
     autoLayout(){
@@ -83,7 +84,7 @@ class GraphDisplay{
                     this.ctx.fillStyle = "#5555FF";
                 }
             }
-            if (inputManager.space.selection.isNodeSelected(node)){
+            if (inputManager.panel.selection.isNodeSelected(node)){
                 this.ctx.strokeStyle = "#FF5555";
             }
             let cTopLeft = this.space.convertPosition(node.topLeft);
