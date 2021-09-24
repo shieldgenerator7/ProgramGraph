@@ -11,20 +11,6 @@ class PanelDisplay{
         this.ctx = panel.canvas.getContext("2d");
     }
 
-    autoLayout(){
-        let columns = this.canvas.clientWidth / 100;
-        let v = new Vector2(1,1);
-        for(let node of this.space.nodeList){
-            if (!node){continue;}
-            node.setPosition(v.scale(70));
-            v.x++;
-            if (v.x > columns){
-                v.x = 1;
-                v.y++;
-            }
-        }
-    }
-
     draw(){
         this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
         //draw temp tutorial text
@@ -58,7 +44,7 @@ class PanelDisplay{
         }
         //draw edges
         this.ctx.strokeStyle = "#000000";
-        for(let edge of this.space.edgeList){
+        for(let edge of this.panel.edgeList){
             if (!edge){continue;}
             this.ctx.beginPath();
             this.ctx.moveTo(
@@ -72,7 +58,7 @@ class PanelDisplay{
             this.ctx.stroke();
         }
         //draw nodes
-        for(let node of this.space.nodeList){
+        for(let node of this.panel.nodeList){
             if (!node){continue;}
             this.ctx.strokeStyle = "#000000";
             this.ctx.fillStyle = "#AAAAAA";

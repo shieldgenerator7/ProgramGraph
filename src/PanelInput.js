@@ -16,9 +16,9 @@ class PanelInput{
         else{
             let prevMouseOverNode = this.panel.state.mouseOverNode;
             this.panel.state.mouseOverNode = undefined;
-            for(let nodeIndex in this.panel.space.nodeList){
+            for(let nodeIndex in this.panel.nodeList){
                 if (!nodeIndex){continue;}
-                let node = this.panel.space.nodeList[nodeIndex];
+                let node = this.panel.nodeList[nodeIndex];
                 if (node.inBounds(gv)){
                     this.panel.state.mouseOverNode = node;
                     break;
@@ -69,12 +69,12 @@ class PanelInput{
             if (this.panel.state.mouseRightClick){
                 this.panel.state.tempEdgeList = [];
                 for (let node of this.panel.selection.selectedNodes){
-                    let edge = this.panel.space.graph.addEdge(
+                    let edge = this.panel.graph.addEdge(
                         node.node,
                         this.panel.state.mouseOverNode.node
                     );
                 }
-                this.panel.space.syncFromGraph();
+                this.panel.syncFromGraph();
                 this.panel.state.mouseRightClick = false;
             }
             this.panel.display.draw();
@@ -91,8 +91,8 @@ class PanelInput{
     onMouseDoubleClick(e){
         let gv = this.panel.space.convertFromPosition(e);
         let node = new Node();
-        this.panel.display.space.graph.addNode(node);
-        let newNodes = this.panel.space.syncFromGraph();
+        this.panel.graph.addNode(node);
+        let newNodes = this.panel.syncFromGraph();
         let uiNode = newNodes[0];
         uiNode.setPosition(gv);
         this.panel.state.mouseOverNode = uiNode;
