@@ -5,7 +5,7 @@
 class PanelDisplay{
     constructor(panel){
         this.panel = panel;
-        this.space = panel.space;
+        this.space = panel.spaceCanvas;
         this.graph = panel.graph;
         this.canvas = panel.canvas;
         this.ctx = panel.canvas.getContext("2d");

@@ -4,10 +4,11 @@ class Panel{
     constructor(graph, canvas){
         this.graph = graph;
         this.canvas = canvas;
-        this.spaceWorld = new Space(this, graph);
-        this.spaceCanvas = new Space(this, canvas);
-        this.spaceWorld.otherSpace = this.spaceCanvas;
-        this.spaceCanvas.otherSpace = this.spaceWorld;
+        this.spaceWorld = new Space(canvas);//(graph);//TODO: make size differentials work better
+        this.spaceCanvas = new Space(canvas);
+        this.spaceCanvas.flip.y = -1;
+        this.spaceWorld.setOtherSpace(this.spaceCanvas);
+        this.spaceCanvas.setOtherSpace(this.spaceWorld);
         this.selection = new Selection();
         this.display = new PanelDisplay(this);
         this.input = new PanelInput(this);
