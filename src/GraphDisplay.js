@@ -84,7 +84,7 @@ class GraphDisplay{
                     this.ctx.fillStyle = "#5555FF";
                 }
             }
-            if (inputManager.panel.selection.isNodeSelected(node)){
+            if (panel.selection.isNodeSelected(node)){
                 this.ctx.strokeStyle = "#FF5555";
             }
             let cTopLeft = this.space.convertPosition(node.topLeft);

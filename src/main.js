@@ -3,7 +3,6 @@
 let data = new Data();
 let panel;
 let display;
-let inputManager;
 function initialize(){
     //Update canvas size
     let canvas = $("cvsGraph");
@@ -20,7 +19,6 @@ function initialize(){
     //Init panel
     panel = new Panel(graph, canvas);
     display = panel.display;
-    inputManager = panel.input;
     display.autoLayout();
     display.draw();
 }
