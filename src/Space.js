@@ -4,14 +4,8 @@ class Space{
     constructor(graph, canvas){
         this.graph = graph;
         this.canvas = canvas;
-        this.offset = {
-            x: 0,
-            y: 0
-        };
-        this.size = {
-            x: 100,
-            y: 100
-        };
+        this.offset = new Vector2(0,0);
+        this.size = new Vector2(100,100);
         this.zoomScale = 1;
         //
         //Node and Edges
@@ -72,6 +66,9 @@ class Space{
     convertY(gy){
         return (this.canvas.clientHeight - (gy + this.offset.y));
     }
+    convertPosition(gv){
+        return new Vector2(this.convertX(gv.x),this.convertY(gv.y));
+    }
     //converts to canvas width
     convertWidth(width){
         return width;
@@ -88,5 +85,8 @@ class Space{
     //converts from canvas y
     convertFromY(cy){
         return -(cy - this.canvas.clientHeight) - this.offset.y;
+    }
+    convertFromPosition(cv){
+        return new Vector2(this.convertFromX(cv.x),this.convertFromY(cv.y));
     }
 }

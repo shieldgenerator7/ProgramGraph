@@ -3,38 +3,34 @@
 class UINode{
     constructor(node){
         this.node = node;
-        this.position = {
-            x:0,
-            y:0
-        };
-        this.topLeft = {
-            x:0,
-            y:0
-        };
-        this.size = {
-            x:50,
-            y:50
-        };
+        this.position = new Vector2(0,0);
+        this.topLeft = new Vector2(0,0);
+        this.size = new Vector2(0,0);
+        this.halfSize = new Vector2(0,0);
+        this.mouseOffset = new Vector2(0,0);
+
+        this.setSize(new Vector2(50,50));
     }
 
-    setPosition(x, y){
-        this.position.x = x;
-        this.position.y = y;
-        this.topLeft.x = x - this.size.x / 2;
-        this.topLeft.y = y + this.size.y / 2;
+    setPosition(v){
+        this.position = v;
+        this.topLeft.x = v.x - this.halfSize.x;
+        this.topLeft.y = v.y + this.halfSize.y;
+    }
+
+    setSize(v){
+        this.size = v;
+        this.halfSize = v.scale(0.5);
     }
 
     //true if the given position is within the bounds of the node
-    inBounds(x, y){
-        return x >= this.topLeft.x && x <= this.topLeft.x + this.size.x
-            && y <= this.topLeft.y && y >= this.topLeft.y - this.size.y;
+    inBounds(v){
+        return v.x >= this.topLeft.x && v.x <= this.topLeft.x + this.size.x
+            && v.y <= this.topLeft.y && v.y >= this.topLeft.y - this.size.y;
     }
 
     //prepares the node for being moved
-    calculateMouseOffset(gx, gy){
-        this.mouseOffset = {
-            x: this.position.x - gx,
-            y: this.position.y - gy
-        };
+    calculateMouseOffset(v){
+        this.mouseOffset = this.position.subtract(v);
     }
 }

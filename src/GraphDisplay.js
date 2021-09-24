@@ -12,15 +12,14 @@ class GraphDisplay{
 
     autoLayout(){
         let columns = this.canvas.clientWidth / 100;
-        let x = 1;
-        let y = 1;
+        let v = new Vector2(1,1);
         for(let node of this.space.nodeList){
             if (!node){continue;}
-            node.setPosition(70*x, 70*y);
-            x++;
-            if (x > columns){
-                x = 1;
-                y++;
+            node.setPosition(v.scale(70));
+            v.x++;
+            if (v.x > columns){
+                v.x = 1;
+                v.y++;
             }
         }
     }
@@ -87,17 +86,22 @@ class GraphDisplay{
             if (inputManager.space.selection.isNodeSelected(node)){
                 this.ctx.strokeStyle = "#FF5555";
             }
-            this.ctx.fillRect(
-                this.space.convertX(node.topLeft.x),
-                this.space.convertY(node.topLeft.y),
+            let cTopLeft = this.space.convertPosition(node.topLeft);
+            let cSize = new Vector2(
                 this.space.convertWidth(node.size.x),
                 this.space.convertHeight(node.size.y)
             );
+            this.ctx.fillRect(
+                cTopLeft.x,
+                cTopLeft.y,
+                cSize.x,
+                cSize.y
+            );
             this.ctx.strokeRect(
-                this.space.convertX(node.topLeft.x),
-                this.space.convertY(node.topLeft.y),
-                this.space.convertWidth(node.size.x),
-                this.space.convertHeight(node.size.y)
+                cTopLeft.x,
+                cTopLeft.y,
+                cSize.x,
+                cSize.y
             );
         }
     }
