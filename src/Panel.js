@@ -9,6 +9,11 @@ class Panel{
         this.display = new GraphDisplay(this);
         this.input = new InputManager(this);
         //For containing processing and input variables
-        this.panelState = {};
+        this.state = {
+            mouseOverNode: undefined,
+            mouseClick: false,
+            mouseRightClick: false,
+            tempEdgeList: [],
+        };
     }
 }

@@ -41,8 +41,8 @@ class GraphDisplay{
             this.ctx.fillText(instructions[i],10,20+i*20);
         }
         //draw temp edge
-        if (inputManager.tempEdgeList.length > 0){
-            for(let tempEdge of inputManager.tempEdgeList){
+        if (panel.state.tempEdgeList.length > 0){
+            for(let tempEdge of panel.state.tempEdgeList){
                 this.ctx.strokeStyle = "#33DD33";
                 this.ctx.beginPath();
                 this.ctx.moveTo(
@@ -76,8 +76,8 @@ class GraphDisplay{
             if (!node){continue;}
             this.ctx.strokeStyle = "#000000";
             this.ctx.fillStyle = "#AAAAAA";
-            if (node===inputManager.mouseOverNode || node===inputManager.mouseRightClickNode){
-                if (inputManager.mouseRightClickNode){
+            if (node===panel.state.mouseOverNode || node===panel.state.mouseRightClickNode){
+                if (panel.state.mouseRightClickNode){
                     this.ctx.fillStyle = "#33DD33";
                 }
                 else{
