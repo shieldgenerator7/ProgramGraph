@@ -15,7 +15,7 @@ class InputManager{
             for(let node of panel.selection.selectedNodes){
                 node.setPosition(gv.add(node.mouseOffset));
             }
-            display.draw();
+            panel.display.draw();
         }
         else{
             let prevMouseOverNode = panel.state.mouseOverNode;
@@ -29,14 +29,14 @@ class InputManager{
                 }
             }
             if (panel.state.mouseOverNode != prevMouseOverNode){
-                display.draw();
+                panel.display.draw();
             }
         }
         if (panel.state.mouseRightClick){
             for(let tempEdge of panel.state.tempEdgeList){
                 tempEdge.to.position = gv;
             }
-            display.draw();
+            panel.display.draw();
         }
     }
 
@@ -64,7 +64,7 @@ class InputManager{
         else{
             panel.selection.selectNode();
         }
-        display.draw();
+        panel.display.draw();
     }
 
     onMouseUp(e){
@@ -81,13 +81,13 @@ class InputManager{
                 panel.space.syncFromGraph();
                 panel.state.mouseRightClick = false;
             }
-            display.draw();
+            panel.display.draw();
         }
         else{
             if (panel.state.mouseRightClick){
                 panel.state.tempEdgeList = [];
                 panel.state.mouseRightClick = false;
-                display.draw();
+                panel.display.draw();
             }
         }
     }
@@ -95,13 +95,13 @@ class InputManager{
     onMouseDoubleClick(e){
         let gv = panel.space.convertFromPosition(e);
         let node = new Node();
-        display.space.graph.addNode(node);
+        panel.display.space.graph.addNode(node);
         let newNodes = panel.space.syncFromGraph();
         let uiNode = newNodes[0];
         uiNode.setPosition(gv);
         panel.state.mouseOverNode = uiNode;
         panel.input.setSelectedNode(uiNode, e.shiftKey);
-        display.draw();
+        panel.display.draw();
     }
 
     setSelectedNode(node, shift){

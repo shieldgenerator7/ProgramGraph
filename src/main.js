@@ -2,7 +2,6 @@
 
 let data = new Data();
 let panel;
-let display;
 function initialize(){
     //Update canvas size
     let canvas = $("cvsGraph");
@@ -18,8 +17,7 @@ function initialize(){
     graph.addEdge(node1,node2);
     //Init panel
     panel = new Panel(graph, canvas);
-    display = panel.display;
-    display.autoLayout();
-    display.draw();
+    panel.display.autoLayout();
+    panel.display.draw();
 }
 initialize();
