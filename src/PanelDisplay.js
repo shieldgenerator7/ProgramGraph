@@ -2,7 +2,7 @@
 
 //In charge of displaying its assigned graph
 
-class GraphDisplay{
+class PanelDisplay{
     constructor(panel){
         this.panel = panel;
         this.space = panel.space;

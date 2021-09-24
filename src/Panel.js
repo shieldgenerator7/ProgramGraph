@@ -6,7 +6,7 @@ class Panel{
         this.canvas = canvas;
         this.space = new Space(this);
         this.selection = new Selection();
-        this.display = new GraphDisplay(this);
+        this.display = new PanelDisplay(this);
         this.input = new InputManager(this);
         //For containing processing and input variables
         this.state = {
