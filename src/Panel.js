@@ -4,7 +4,10 @@ class Panel{
     constructor(graph, canvas){
         this.graph = graph;
         this.canvas = canvas;
-        this.space = new Space(this);
+        this.spaceWorld = new Space(this, graph);
+        this.spaceCanvas = new Space(this, canvas);
+        this.spaceWorld.otherSpace = this.spaceCanvas;
+        this.spaceCanvas.otherSpace = this.spaceWorld;
         this.selection = new Selection();
         this.display = new PanelDisplay(this);
         this.input = new PanelInput(this);
