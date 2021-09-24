@@ -7,7 +7,7 @@ class Panel{
         this.space = new Space(this);
         this.selection = new Selection();
         this.display = new PanelDisplay(this);
-        this.input = new InputManager(this);
+        this.input = new PanelInput(this);
         //For containing processing and input variables
         this.state = {
             mouseOverNode: undefined,

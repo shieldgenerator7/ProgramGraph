@@ -41,8 +41,8 @@ class PanelDisplay{
             this.ctx.fillText(instructions[i],10,20+i*20);
         }
         //draw temp edge
-        if (panel.state.tempEdgeList.length > 0){
-            for(let tempEdge of panel.state.tempEdgeList){
+        if (this.panel.state.tempEdgeList.length > 0){
+            for(let tempEdge of this.panel.state.tempEdgeList){
                 this.ctx.strokeStyle = "#33DD33";
                 this.ctx.beginPath();
                 this.ctx.moveTo(
@@ -76,15 +76,15 @@ class PanelDisplay{
             if (!node){continue;}
             this.ctx.strokeStyle = "#000000";
             this.ctx.fillStyle = "#AAAAAA";
-            if (node===panel.state.mouseOverNode || node===panel.state.mouseRightClickNode){
-                if (panel.state.mouseRightClickNode){
+            if (node===this.panel.state.mouseOverNode || node===this.panel.state.mouseRightClickNode){
+                if (this.panel.state.mouseRightClickNode){
                     this.ctx.fillStyle = "#33DD33";
                 }
                 else{
                     this.ctx.fillStyle = "#5555FF";
                 }
             }
-            if (panel.selection.isNodeSelected(node)){
+            if (this.panel.selection.isNodeSelected(node)){
                 this.ctx.strokeStyle = "#FF5555";
             }
             let cTopLeft = this.space.convertPosition(node.topLeft);
