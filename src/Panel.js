@@ -12,6 +12,7 @@ class Panel{
         this.selection = new Selection();
         this.display = new PanelDisplay(this);
         this.input = new PanelInput(this);
+        this.autoLayout = new PanelAutoLayout(this);
         //For containing processing and input variables
         this.state = {
             mouseOverNode: undefined,
@@ -26,7 +27,7 @@ class Panel{
         this.edgeList = [];
         //
         this.syncFromGraph();
-        this.autoLayout();
+        this.autoLayout.autoLayout();
         this.display.draw();
     }
 
@@ -69,19 +70,5 @@ class Panel{
             }
         }
         return newNodes;
-    }
-
-    autoLayout(){
-        let columns = this.canvas.clientWidth / 100;
-        let v = new Vector2(1,1);
-        for(let node of this.nodeList){
-            if (!node){continue;}
-            node.setPosition(v.scale(70));
-            v.x++;
-            if (v.x > columns){
-                v.x = 1;
-                v.y++;
-            }
-        }
     }
 }
