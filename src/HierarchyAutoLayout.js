@@ -48,7 +48,7 @@ class HierarchyAutoLayout{
             v.y = (i+1) * buffer.y;
             for(let j = 0; j < this.rows[i].length; j++){
                 v.x = (j+1) * buffer.x;
-                this.rows[i][j].setPosition(v);
+                this.rows[i][j].setPosition(v.scale(1));
             }
         }
     }
