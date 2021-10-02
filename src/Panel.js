@@ -20,6 +20,10 @@ class Panel{
             mouseRightClick: false,
             tempEdgeList: [],
         };
+        //Panel Settings, unique per panel type
+        this.settings = {
+            hierarchy: true,
+        }
         //
         //Node and Edges
         //
