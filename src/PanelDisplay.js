@@ -89,12 +89,14 @@ class PanelDisplay{
             );
             //Text
             this.ctx.fillStyle = "#000000";
-            let textPos = this.space.convertPosition(node.text.position);
-            this.ctx.fillText(
-                node.node.getTitle(),
-                textPos.x,
-                textPos.y
-            );
+            node.textList.forEach((text, i) => {
+                let textPos = this.space.convertPosition(text.position);
+                this.ctx.fillText(
+                    text.str,
+                    textPos.x,
+                    textPos.y
+                );
+            });
         }
     }
 }

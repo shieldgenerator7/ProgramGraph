@@ -2,6 +2,7 @@
 
 let WIDTH_MIN = 50;
 let WIDTH_BUFFER = 5;
+let HEIGHT_MIN = 25;
 let HEIGHT_BUFFER = 5;
 
 class UINode{
@@ -10,10 +11,7 @@ class UINode{
         //indepedent variables
         this.position = new Vector2(0,0);
         this.size = new Vector2(0,0);
-        this.text = {
-            row: 0,
-            position: new Vector2(0,0),
-        }
+        this.textList = [];
         this.visible = true;
         this.autoPosition = true;
         //dependent variables
@@ -29,13 +27,44 @@ class UINode{
     }
 
     syncWithNode(){
-        let textSize = getTextSize(this.node.getTitle());
-        let maxWidth = textSize.x + (WIDTH_BUFFER*2);
+        this.syncTextListWithNode();
+        let maxWidth = Math.max(
+                ...this.textList.map(text=>text.size.x)
+            )
+            + (WIDTH_BUFFER*2);
         this.size.x = Math.max(maxWidth, WIDTH_MIN);
-        this.text.position.x = this.position.x - (textSize.x/2);
-        this.text.position.y =
-            this.position.y - ((this.text.row+1) * (textSize.y+HEIGHT_BUFFER));
+        this.size.y = this.textList.reduce((a,b)=>a+b.size.y,HEIGHT_MIN);
         this._recalculateCache();
+        let leftPosition = this.topLeft.x + WIDTH_BUFFER;
+        this.textList
+        .filter(text => text.align == "left")
+        .forEach((text, i) => text.position.x = leftPosition);
+
+    }
+
+    syncTextListWithNode(){
+        this.textList = [];
+        this.textList.push(this.getTextObject(this.node.getTitle(),0));
+        this.node.attributes.forEach((attr, i) => {
+            let text = this.getTextObject(attr,i+1);
+            text.align = "left";
+            this.textList.push(text);
+        });
+    }
+
+    getTextObject(str, row){
+        let text = {
+            str: str,
+            row: row,
+            position: new Vector2(0,0),
+            size: new Vector2(0,0),
+            align: "center",
+        }
+        text.size = getTextSize(text.str);
+        text.position.x = this.position.x - (text.size.x/2);
+        text.position.y =
+            this.position.y - ((text.row+1) * (text.size.y+HEIGHT_BUFFER));
+        return text;
     }
 
     setPosition(v){
