@@ -79,6 +79,10 @@ class PanelFile{
             }
             else{
                 let newNode = new Node();
+                let afterTagEnd = title.split(">")[1].trim();
+                if (afterTagEnd.length > 0){
+                    title = title.split(">")[0].trim()+">";
+                }
                 newNode.setTitle(title);
                 graph.addNode(newNode);
                 if (parentNode){
@@ -87,6 +91,14 @@ class PanelFile{
                 if (!this.isTagSingular(title)){
                     //go into subnodes with the new node
                     parentNode = newNode;
+                }
+                if (afterTagEnd.length > 0){
+                    newNode = new Node();
+                    newNode.setTitle(afterTagEnd);
+                    graph.addNode(newNode);
+                    if (parentNode){
+                        graph.addEdge(parentNode, newNode);
+                    }
                 }
             }
         }
