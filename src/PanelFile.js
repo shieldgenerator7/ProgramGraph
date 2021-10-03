@@ -9,7 +9,7 @@ const TAGS_SINGULAR = [
 class PanelFile{
     constructor(panel){
         this.panel = panel;
-        this.fileName = "panelgraph.txt"
+        this.fileName = "index.html";
         this.content = undefined;
     }
 
