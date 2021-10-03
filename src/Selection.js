@@ -13,7 +13,7 @@ class Selection{
     }
 
     selectNodeToo(node){
-        if (node){
+        if (node && !this.isNodeSelected(node)){
             this.selectedNodes.push(node);
             this.panel.onSelectionChanged();
         }

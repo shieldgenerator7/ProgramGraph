@@ -43,7 +43,11 @@ class PanelInput{
         if (this.panel.state.mouseOverNode){
             if (e.which == 3){//RMB
                 this.panel.state.mouseRightClick = true;
-                this.panel.input.setSelectedNode(this.panel.state.mouseOverNode, e.shiftKey);
+                this.panel.input.setSelectedNode(
+                    this.panel.state.mouseOverNode,
+                    e.shiftKey,
+                    e.ctrlKey
+                );
                 for(let node of this.panel.selection.selectedNodes){
                     let tempEdge = new UIEdge(undefined, node, undefined);
                     tempEdge.to = {};
@@ -54,7 +58,11 @@ class PanelInput{
             else{//LMB
                 this.panel.state.mouseClick = true;
                 //Select node if not selected
-                this.panel.input.setSelectedNode(this.panel.state.mouseOverNode, e.shiftKey);
+                this.panel.input.setSelectedNode(
+                    this.panel.state.mouseOverNode,
+                    e.shiftKey,
+                    e.ctrlKey
+                );
                 //Calculate offsets in preparation for move
                 this.panel.input.calculateNodeOffsets(gv);
             }
@@ -111,20 +119,41 @@ class PanelInput{
             let uiNode = newNodes[0];
             uiNode.setPosition(gv);
             this.panel.state.mouseOverNode = uiNode;
-            this.panel.input.setSelectedNode(uiNode, e.shiftKey);
+            this.panel.input.setSelectedNode(uiNode, e.shiftKey, e.ctrlKey);
         }
         this.panel.display.draw();
     }
 
-    setSelectedNode(node, shift){
-        if (!this.panel.selection.isNodeSelected(node)){
+    setSelectedNode(uiNode, shift, ctrl){
+        if (!this.panel.selection.isNodeSelected(uiNode)){
             if (shift){
-                this.panel.selection.selectNodeToo(node);
+                this.panel.selection.selectNodeToo(uiNode);
             }
             else{
-                this.panel.selection.selectNode(node);
+                this.panel.selection.selectNode(uiNode);
             }
         }
+        if (ctrl){
+            if (!shift){
+                this.panel.selection.selectNode(uiNode);
+            }
+            this.selectChildrenNodes(uiNode);
+        }
+    }
+
+    //TODO: make this method work even when there's loops
+    selectChildrenNodes(uiNode){
+        this.panel.selection.selectNodeToo(uiNode);
+        let childrenUINodes = this.panel.graph.getNeighborsFrom(uiNode.node)
+        .map(
+            node => this.panel.nodeList[node.id]
+        );
+        // .filter(
+        //     childUINode => !this.panel.selection.isNodeSelected(childUINode)
+        // );
+        childrenUINodes.forEach((childUINode, i) => {
+            this.selectChildrenNodes(childUINode);
+        });
     }
 
     calculateNodeOffsets(gv){
