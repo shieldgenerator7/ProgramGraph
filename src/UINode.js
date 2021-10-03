@@ -14,6 +14,7 @@ class UINode{
         this.textList = [];
         this.visible = true;
         this.autoPosition = true;
+        this.childPosition = new Vector2(0,0);
         //dependent variables
         this.topLeft = new Vector2(0,0);
         this.halfSize = new Vector2(0,0);
@@ -85,6 +86,10 @@ class UINode{
         this.halfSize = this.size.scale(0.5);
         this.topLeft.x = this.position.x - this.halfSize.x;
         this.topLeft.y = this.position.y;
+        this.childPosition = new Vector2(
+            this.topLeft.x,
+            this.position.y-this.size.y-HEIGHT_BUFFER
+        );
         this.onChange?.();
     }
 

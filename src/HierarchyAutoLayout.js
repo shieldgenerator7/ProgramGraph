@@ -46,13 +46,29 @@ class HierarchyAutoLayout{
     positionNodes(){
         let buffer = new Vector2(70, 70);
         let v = new Vector2(1,1);
+        this.panel.nodeList.forEach((uiNode, i) => {
+            uiNode.childPosition = new Vector2(
+                uiNode.topLeft.x,
+                uiNode.position.y-uiNode.size.y-HEIGHT_BUFFER
+            )
+        });
         for(let i = 0; i < this.rows.length; i++){
             v.y = this.panel.spaceWorld.size.y - ((i+1) * buffer.y);
             for(let j = 0; j < this.rows[i].length; j++){
                 v.x = (j+1) * buffer.x;
                 let uiNode = this.rows[i][j];
                 if (uiNode.autoPosition){
-                    uiNode.setPosition(v.scale(1));
+                    if (i > 0){
+                        let parentUINode = this.panel.nodeList[
+                            this.graph.getNeighborsTo(uiNode.node)[0].id
+                        ];
+                        parentUINode.childPosition.x += uiNode.halfSize.x;
+                        uiNode.setPosition(parentUINode.childPosition);
+                        parentUINode.childPosition.x += uiNode.halfSize.x + WIDTH_BUFFER;
+                    }
+                    else{
+                        uiNode.setPosition(v);
+                    }
                 }
             }
         }

@@ -25,6 +25,7 @@ class PanelControl{
         );
         childrenUINodes.forEach((childUINode, i) => {
             childUINode.visible = expand;
+            childUINode.autoPosition = true;
             this.expandNodeHierarchy(childUINode, expand);
         });
     }
