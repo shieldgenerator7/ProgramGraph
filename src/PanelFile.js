@@ -1,5 +1,11 @@
 "use strict";
 
+const TAGS_SINGULAR = [
+    "link",
+    "meta",
+    "br",
+];
+
 class PanelFile{
     constructor(panel){
         this.panel = panel;
@@ -78,7 +84,7 @@ class PanelFile{
                 if (parentNode){
                     graph.addEdge(parentNode, newNode);
                 }
-                if (!(title.endsWith("/>") || title.startsWith("<!"))){
+                if (!this.isTagSingular(title)){
                     //go into subnodes with the new node
                     parentNode = newNode;
                 }
@@ -107,7 +113,7 @@ class PanelFile{
     }
 
     _writeContentNode(graph, node){
-        let title = node.getTitle();
+        let title = node.getTitle().trim();
         //start tag
         let content = title;
         //inner html
@@ -116,9 +122,23 @@ class PanelFile{
             content += this._writeContentNode(graph, childNode);
         });
         //end tag
-        if (title.startsWith("<") && !title.startsWith("<!")){
+        if (title.startsWith("<") && !this.isTagSingular(title)){
             content += title.slice(0,1) + "/" + title.slice(1);
         }
         return content;
+    }
+
+    isTagSingular(title){
+        if (title.startsWith("<!")
+            || title.endsWith("/>")
+        ){
+            return true;
+        }
+        //Turn "<link rel='stylesheet'>" into "link"
+        let tag = title.replace("<","").replace(">","").split(/[ \n\t]+/)[0].trim();
+        if (TAGS_SINGULAR.includes(tag)){
+            return true;
+        }
+        return false;
     }
 }
