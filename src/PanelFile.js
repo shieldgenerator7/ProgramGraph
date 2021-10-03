@@ -10,18 +10,48 @@ class PanelFile{
     readFile(filename){
         this.fileName = filename ?? this.fileName;
         //read file
-        this.content = "<html><body><p></p><p></p></body></html>";
-        this._readContent();
-    }
-
-    writeFile(){
-        this._writeContent();
-        //download content
-        window.download(
-            this.content,
-            "index" + '.html',
-            'data:application/txt'
-        )
+        //2021-10-02: copied from SyllableSight
+        const input = document.createElement('input');
+        input.type = "file";
+        input.accept = ".html";
+        input.multiple = false;
+        let readFunc = (content) => {
+            this.content = content;
+            this._readContent();
+            this.panel.nodeList = [];
+            this.panel.edgeList = [];
+            this.panel.syncFromGraph();
+            this.panel.autoLayout.autoLayout();
+            this.panel.display.draw();
+        };
+        input.addEventListener(
+            'change',
+            function (event) {
+                const input = event.target;
+                if ('files' in input && input.files.length > 0) {
+                    let countFinished = 0;
+                    for (let i = 0; i < input.files.length; i++) {
+                        const file = input.files[i];
+                        const reader = new FileReader();
+                        (new Promise((resolve, reject) => {
+                            reader.onload = event => resolve(event.target.result)
+                            reader.onerror = error => reject(error)
+                            reader.readAsText(file)
+                        })).then(content => {
+                            //Turn the content string into a graph
+                            readFunc(content);
+                            //Log it
+                            console.log("file imported: ", file.name);
+                            //Update counter
+                            countFinished++;
+                            if (countFinished == input.files.length) {
+                            }
+                        }).catch(error => console.error(error));
+                    }
+                }
+            }
+        );
+        input.click();
     }
 
     _readContent(){
@@ -52,6 +82,16 @@ class PanelFile{
             }
         }
         this.panel.graph = graph;
+    }
+
+    writeFile(){
+        this._writeContent();
+        //download content
+        window.download(
+            this.content,
+            "index" + '.html',
+            'data:application/txt'
+        )
     }
 
     _writeContent(){
