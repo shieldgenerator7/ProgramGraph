@@ -1,7 +1,8 @@
 "use strict";
 
 class Selection{
-    constructor(){
+    constructor(panel){
+        this.panel = panel;
         this.selectedNodes = [];
         this.selectedEdges = [];
     }
@@ -14,6 +15,7 @@ class Selection{
     selectNodeToo(node){
         if (node){
             this.selectedNodes.push(node);
+            this.panel.onSelectionChanged();
         }
     }
 
@@ -31,6 +33,7 @@ class Selection{
     clearSelection(){
         this.selectedNodes = [];
         this.selectedEdges = [];
+        this.panel.onSelectionChanged();
     }
 
     isNodeSelected(node){

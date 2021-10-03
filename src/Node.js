@@ -10,4 +10,8 @@ class Node{
     getTitle(){
         return this.title ?? this.id;
     }
+
+    setTitle(text){
+        this.title = text;
+    }
 }

@@ -9,7 +9,7 @@ class Panel{
         this.spaceCanvas.flip.y = -1;
         this.spaceWorld.setOtherSpace(this.spaceCanvas);
         this.spaceCanvas.setOtherSpace(this.spaceWorld);
-        this.selection = new Selection();
+        this.selection = new Selection(this);
         this.display = new PanelDisplay(this);
         this.input = new PanelInput(this);
         this.control = new PanelControl(this);
@@ -30,6 +30,12 @@ class Panel{
         //
         this.nodeList = [];
         this.edgeList = [];
+        //
+        let txtTitle = $("txtTitle");
+        txtTitle.onchange = this.onTitleTextChanged;
+        txtTitle.onkeypress = this.onTitleTextChanged;
+        txtTitle.onpaste = this.onTitleTextChanged;
+        txtTitle.oninput = this.onTitleTextChanged;
         //
         this.syncFromGraph();
         this.autoLayout.autoLayout();
@@ -75,5 +81,18 @@ class Panel{
             }
         }
         return newNodes;
+    }
+
+    onSelectionChanged(){
+        if (this.selection.selectedNodes[0]){
+            $("txtTitle").value = this.selection.selectedNodes[0].node.getTitle();
+        }
+    }
+
+    onTitleTextChanged(){
+        if (currentPanel.selection.selectedNodes[0]){
+            currentPanel.selection.selectedNodes[0].node.setTitle($("txtTitle").value);
+            currentPanel.display.draw();
+        }
     }
 }
