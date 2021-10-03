@@ -30,3 +30,10 @@ function getTextSize(text, font) {
   const metrics = context.measureText(text);
   return new Vector2(metrics.width, metrics.actualBoundingBoxAscent);
 }
+
+function registerTextOnChange(txt, changeFunc){
+    txt.onchange = changeFunc;
+    txt.onkeypress = changeFunc;
+    txt.onpaste = changeFunc;
+    txt.oninput = changeFunc;
+}

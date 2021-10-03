@@ -89,7 +89,7 @@ class PanelFile{
                     let attr = title.slice(idx+1, title.length-eL.length);
                     title = title.slice(0, idx)+eL;
                     //
-                    newNode.attributes.push(attr);
+                    newNode.addAttributesFromString(attr," ");
                 }
                 newNode.setTitle(title);
                 graph.addNode(newNode);

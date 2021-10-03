@@ -16,4 +16,18 @@ class Node{
         this.title = text;
         this.onChange?.();
     }
+
+    getAttributeString(){
+        return this.attributes.join("\n");
+    }
+
+    addAttributesFromString(strAttrs, separator){
+        let attrs = strAttrs.split(separator);
+        attrs.map(str => str.trim());
+        this.attributes = this.attributes.concat(attrs);
+    }
+
+    clearAttributes(){
+        this.attributes = [];
+    }
 }

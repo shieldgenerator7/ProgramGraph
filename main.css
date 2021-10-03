@@ -33,9 +33,11 @@ p {
 }
 
 .txtTitle{
+    width: 100%;
     height: 25px;
 }
 
 .txtAttributes{
+    width: 100%;
     height: 200px;
 }

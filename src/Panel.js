@@ -31,12 +31,15 @@ class Panel{
         //
         this.nodeList = [];
         this.edgeList = [];
-        //
-        let txtTitle = $("txtTitle");
-        txtTitle.onchange = this.onTitleTextChanged;
-        txtTitle.onkeypress = this.onTitleTextChanged;
-        txtTitle.onpaste = this.onTitleTextChanged;
-        txtTitle.oninput = this.onTitleTextChanged;
+        //Register text on change events
+        registerTextOnChange(
+            $("txtTitle"),
+            this.onTitleTextChanged
+        );
+        registerTextOnChange(
+            $("txtAttributes"),
+            this.onAttributeTextChanged
+        );
         //
         this.syncFromGraph();
     }
@@ -84,14 +87,22 @@ class Panel{
 
     onSelectionChanged(){
         if (this.selection.selectedNodes.length > 0){
+            //Title
             let collectiveTitle = this.selection.selectedNodes[0].node.getTitle();
             this.selection.selectedNodes.forEach((uiNode, i) => {
                 if (uiNode.node.getTitle() != collectiveTitle){
                     collectiveTitle = "---";
                 }
             });
-
             $("txtTitle").value = collectiveTitle;
+            //Attributes
+            let collectiveAttrStr = this.selection.selectedNodes[0].node.getAttributeString();
+            this.selection.selectedNodes.forEach((uiNode, i) => {
+                if (uiNode.node.getAttributeString() != collectiveAttrStr){
+                    collectiveAttrStr = "---";
+                }
+            });
+            $("txtAttributes").value = collectiveAttrStr;
         }
     }
 
@@ -100,6 +111,17 @@ class Panel{
             let newTitle = $("txtTitle").value;
             currentPanel.selection.selectedNodes.forEach((uiNode, i) => {
                 uiNode.node.setTitle(newTitle);
+            });
+            currentPanel.display.draw();
+        }
+    }
+
+    onAttributeTextChanged(){
+        if (currentPanel.selection.selectedNodes.length){
+            let newAttrs = $("txtAttributes").value;
+            currentPanel.selection.selectedNodes.forEach((uiNode, i) => {
+                uiNode.node.clearAttributes();
+                uiNode.node.addAttributesFromString(newAttrs,"\n");
             });
             currentPanel.display.draw();
         }
