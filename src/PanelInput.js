@@ -7,7 +7,7 @@ class PanelInput{
     }
 
     onMouseMove(e){
-        let gv = this.space.convertPosition(e);
+        let gv = this.space.convertPosition(cvsTL.reverseSubtract(e));
         if (this.panel.state.mouseClick){
             for(let node of this.panel.selection.selectedNodes){
                 node.setPosition(gv.add(node.mouseOffset));
@@ -38,7 +38,7 @@ class PanelInput{
     }
 
     onMouseDown(e){
-        let gv = this.space.convertPosition(e);
+        let gv = this.space.convertPosition(cvsTL.reverseSubtract(e));
         if (this.panel.state.mouseOverNode){
             if (e.which == 3){//RMB
                 this.panel.state.mouseRightClick = true;
@@ -84,7 +84,7 @@ class PanelInput{
     }
 
     onMouseDoubleClick(e){
-        let gv = this.space.convertPosition(e);
+        let gv = this.space.convertPosition(cvsTL.reverseSubtract(e));
         let node = new Node();
         this.panel.graph.addNode(node);
         let newNodes = this.panel.syncFromGraph();

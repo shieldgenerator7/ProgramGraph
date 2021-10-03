@@ -9,18 +9,18 @@ class InputManager{
     }
 
     onMouseMove(e){
-        currentPanel.input.onMouseMove(cvsTL.reverseSubtract(e));
+        currentPanel.input.onMouseMove(e);
     }
 
     onMouseDown(e){
-        currentPanel.input.onMouseDown(cvsTL.reverseSubtract(e));
+        currentPanel.input.onMouseDown(e);
     }
 
     onMouseUp(e){
-        currentPanel.input.onMouseUp(cvsTL.reverseSubtract(e));
+        currentPanel.input.onMouseUp(e);
     }
 
     onMouseDoubleClick(e){
-        currentPanel.input.onMouseDoubleClick(cvsTL.reverseSubtract(e));
+        currentPanel.input.onMouseDoubleClick(e);
     }
 }
