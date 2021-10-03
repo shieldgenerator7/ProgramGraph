@@ -17,6 +17,11 @@ class PanelFile{
     writeFile(){
         this._writeContent();
         //download content
+        window.download(
+            this.content,
+            "index" + '.html',
+            'data:application/txt'
+        )
     }
 
     _readContent(){
