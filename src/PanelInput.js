@@ -69,13 +69,7 @@ class PanelInput{
         if (this.panel.state.mouseOverNode){
             if (this.panel.state.mouseRightClick){
                 this.panel.state.tempEdgeList = [];
-                for (let node of this.panel.selection.selectedNodes){
-                    let edge = this.panel.graph.addEdge(
-                        node.node,
-                        this.panel.state.mouseOverNode.node
-                    );
-                }
-                this.panel.syncFromGraph();
+                this.panel.control.addEdges();
                 this.panel.state.mouseRightClick = false;
             }
             this.panel.display.draw();

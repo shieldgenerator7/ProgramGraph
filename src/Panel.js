@@ -12,6 +12,7 @@ class Panel{
         this.selection = new Selection();
         this.display = new PanelDisplay(this);
         this.input = new PanelInput(this);
+        this.control = new PanelControl(this);
         this.autoLayout = new PanelAutoLayout(this);
         //For containing processing and input variables
         this.state = {
