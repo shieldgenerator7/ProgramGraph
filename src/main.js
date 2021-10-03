@@ -14,16 +14,11 @@ function initialize(){
     //Init InputManager
     inputManager = new InputManager();
     //Init data
-    data.newGraph();
-    let graph = data.graphList[0];
-    let node1 = new Node();
-    let node2 = new Node();
-    graph.addNode(node1);
-    graph.addNode(node2);
-    graph.addEdge(node1,node2);
+    let graph = data.newGraph();
     //Init panel
     currentPanel = new Panel(graph, canvas);
-    //currentPanel.file.readFile();
+    currentPanel.file.content="<html><body><p style='width:100px;'>Lorem ipsum</p><div id='divImg'><img src='icon.png'/></div></body></html>";
+    currentPanel.file._readContent();
     currentPanel.syncFromGraph();
     currentPanel.autoLayout.autoLayout();
     currentPanel.display.draw();

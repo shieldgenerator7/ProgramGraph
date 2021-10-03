@@ -9,6 +9,7 @@ class Data{
     newGraph(){
         let graph = new Graph();
         this.graphList.push(graph);
+        return graph;
     }
 }
 
