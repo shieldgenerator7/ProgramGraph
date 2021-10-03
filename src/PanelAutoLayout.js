@@ -14,7 +14,7 @@ class PanelAutoLayout{
             let v = new Vector2(1,1);
             for(let node of this.panel.nodeList){
                 if (!node){continue;}
-                if (node.position.x != 0){continue;}
+                if (!node.autoPosition){continue;}
                 node.setPosition(v.scale(70));
                 v.x++;
                 if (v.x > columns){

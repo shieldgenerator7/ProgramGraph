@@ -11,6 +11,7 @@ class PanelInput{
         if (this.panel.state.mouseClick){
             for(let node of this.panel.selection.selectedNodes){
                 node.setPosition(gv.add(node.mouseOffset));
+                node.autoPosition = false;
             }
             this.panel.display.draw();
         }

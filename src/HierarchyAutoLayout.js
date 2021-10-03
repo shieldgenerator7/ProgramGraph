@@ -50,7 +50,10 @@ class HierarchyAutoLayout{
             v.y = this.panel.spaceWorld.size.y - ((i+1) * buffer.y);
             for(let j = 0; j < this.rows[i].length; j++){
                 v.x = (j+1) * buffer.x;
-                this.rows[i][j].setPosition(v.scale(1));
+                let uiNode = this.rows[i][j];
+                if (uiNode.autoPosition){
+                    uiNode.setPosition(v.scale(1));
+                }
             }
         }
     }
