@@ -78,7 +78,10 @@ class PanelFile{
                 if (parentNode){
                     graph.addEdge(parentNode, newNode);
                 }
-                parentNode = newNode;
+                if (!(title.endsWith("/>") || title.startsWith("<!"))){
+                    //go into subnodes with the new node
+                    parentNode = newNode;
+                }
             }
         }
         this.panel.graph = graph;
@@ -97,8 +100,10 @@ class PanelFile{
     _writeContent(){
         let graph = this.panel.graph;
         this.content = "";
-        let node = this.panel.autoLayout.hal.headUINode.node;
-        this.content = this._writeContentNode(graph, node);
+        this.panel.autoLayout.hal.headUINodeList.forEach((headUINode, i) => {
+            let node = headUINode.node;
+            this.content += this._writeContentNode(graph, node);
+        });
     }
 
     _writeContentNode(graph, node){
@@ -111,7 +116,7 @@ class PanelFile{
             content += this._writeContentNode(graph, childNode);
         });
         //end tag
-        if (title.startsWith("<")){
+        if (title.startsWith("<") && !title.startsWith("<!")){
             content += title.slice(0,1) + "/" + title.slice(1);
         }
         return content;

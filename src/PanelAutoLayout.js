@@ -27,6 +27,5 @@ class PanelAutoLayout{
 
     autoLayoutHierarchy(){
         this.hal = new HierarchyAutoLayout(this.panel);
-        console.log("hal head node: "+this.hal.headUINode.node.id);
     }
 }

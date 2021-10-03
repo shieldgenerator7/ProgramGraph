@@ -4,26 +4,25 @@ class HierarchyAutoLayout{
     constructor(panel){
         this.panel = panel;
         this.graph = this.panel.graph;
-        this.headUINode = this.findHeadUINode();
+        this.headUINodeList = this.findHeadUINodes();
         this.rows = [];
         this.populateRows();
         this.positionNodes();
     }
 
-    findHeadUINode(){
-        let node = this.graph.nodeList[0];
-        let parentNode = this.graph.getNeighborsTo(node)[0];
-        while(parentNode){
-            node = parentNode;
-            parentNode = this.graph.getNeighborsTo(node)[0];
-        }
-        return this.panel.nodeList[node.id];
+    findHeadUINodes(){
+        return this.panel.nodeList.filter(
+            uiNode => this.graph.getNeighborsTo(uiNode.node).length == 0
+        );
     }
 
     populateRows(){
         this.rows = [];
-        this.rows[0] = [this.headUINode];
-        this._populateRows(this.headUINode, 1);
+        this.rows[0] = [];
+        this.rows[0] = this.rows[0].concat(this.headUINodeList);
+        this.headUINodeList.forEach((headUINode, i) => {
+            this._populateRows(headUINode, 1);
+        });
     }
     _populateRows(parentUINode, rowId){
         let childrenUINodes = this.graph.getNeighborsFrom(parentUINode.node)
