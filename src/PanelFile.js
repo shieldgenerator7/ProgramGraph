@@ -128,18 +128,19 @@ class PanelFile{
         this.content = "";
         this.panel.autoLayout.hal.headUINodeList.forEach((headUINode, i) => {
             let node = headUINode.node;
-            this.content += this._writeContentNode(graph, node);
+            this.content += this._writeContentNode(graph, node, -1);
         });
         this.content.trim();
     }
 
-    _writeContentNode(graph, node){
+    _writeContentNode(graph, node, level){
         let title = node.getTitle().trim();
+        let tabs = " ".repeat(Math.max(level,0)*4);
         //start tag
         let content = "\n";
         if (node.attributes.length > 0){
             let eL = (title.endsWith("/>")) ?"/>" :">";
-            content += title.slice(0, title.length-(eL.length))+" ";
+            content += tabs + title.slice(0, title.length-(eL.length))+" ";
             node.attributes.forEach((attr, i) => {
                 content += attr+" ";
             });
@@ -147,18 +148,18 @@ class PanelFile{
             content += eL;
         }
         else{
-            content += title;
+            content += tabs + title;
         }
         let prevContentLength = content.length;
         //inner html
         let childList = graph.getNeighborsFrom(node);
         childList.forEach((childNode, i) => {
-            content += this._writeContentNode(graph, childNode);
+            content += this._writeContentNode(graph, childNode, level+1);
         });
         //end tag
         if (title.startsWith("<") && !this.isTagSingular(title)){
             if (prevContentLength != content.length){
-                content += "\n";
+                content += "\n"+tabs;
             }
             content += title.slice(0,1) + "/" + title.slice(1);
         }
