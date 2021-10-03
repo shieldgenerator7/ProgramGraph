@@ -51,6 +51,7 @@ class PanelDisplay{
         //draw nodes
         for(let node of this.panel.nodeList){
             if (!node){continue;}
+            //Special styling based on panel state
             this.ctx.strokeStyle = "#000000";
             this.ctx.fillStyle = "#AAAAAA";
             if (node===this.panel.state.mouseOverNode || node===this.panel.state.mouseRightClickNode){
@@ -64,22 +65,33 @@ class PanelDisplay{
             if (this.panel.selection.isNodeSelected(node)){
                 this.ctx.strokeStyle = "#FF5555";
             }
+            //Get Size
+            let cPos = this.space.convertPosition(node.position);
             let cTopLeft = this.space.convertPosition(node.topLeft);
             let cSize = new Vector2(
                 this.space.convertWidth(node.size.x),
                 this.space.convertHeight(node.size.y)
             );
+            //Node Background
             this.ctx.fillRect(
                 cTopLeft.x,
                 cTopLeft.y,
                 cSize.x,
                 cSize.y
             );
+            //Node Border
             this.ctx.strokeRect(
                 cTopLeft.x,
                 cTopLeft.y,
                 cSize.x,
                 cSize.y
+            );
+            //Text
+            this.ctx.fillStyle = "#000000";
+            this.ctx.fillText(
+                node.node.getTitle(),
+                cPos.x,
+                cPos.y
             );
         }
     }
