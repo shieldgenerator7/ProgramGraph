@@ -5,6 +5,7 @@ class Node{
         this.id = getNextId();
         this.title = undefined;
         this.attributes = [];
+        this.onChange = undefined;
     }
 
     getTitle(){
@@ -13,5 +14,6 @@ class Node{
 
     setTitle(text){
         this.title = text;
+        this.onChange?.();
     }
 }

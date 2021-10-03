@@ -66,7 +66,6 @@ class PanelDisplay{
                 this.ctx.strokeStyle = "#FF5555";
             }
             //Get Size
-            let cPos = this.space.convertPosition(node.position);
             let cTopLeft = this.space.convertPosition(node.topLeft);
             let cSize = new Vector2(
                 this.space.convertWidth(node.size.x),
@@ -88,10 +87,11 @@ class PanelDisplay{
             );
             //Text
             this.ctx.fillStyle = "#000000";
+            let textPos = this.space.convertPosition(node.text.position);
             this.ctx.fillText(
                 node.node.getTitle(),
-                cPos.x,
-                cPos.y
+                textPos.x,
+                textPos.y
             );
         }
     }
