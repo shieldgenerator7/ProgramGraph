@@ -14,6 +14,7 @@ class Panel{
         this.input = new PanelInput(this);
         this.control = new PanelControl(this);
         this.autoLayout = new PanelAutoLayout(this);
+        this.file = new PanelFile(this);
         //For containing processing and input variables
         this.state = {
             mouseOverNode: undefined,
@@ -38,8 +39,6 @@ class Panel{
         txtTitle.oninput = this.onTitleTextChanged;
         //
         this.syncFromGraph();
-        this.autoLayout.autoLayout();
-        this.display.draw();
     }
 
     //Update the list of nodes and edges from the graph
