@@ -84,14 +84,24 @@ class Panel{
     }
 
     onSelectionChanged(){
-        if (this.selection.selectedNodes[0]){
-            $("txtTitle").value = this.selection.selectedNodes[0].node.getTitle();
+        if (this.selection.selectedNodes.length > 0){
+            let collectiveTitle = this.selection.selectedNodes[0].node.getTitle();
+            this.selection.selectedNodes.forEach((uiNode, i) => {
+                if (uiNode.node.getTitle() != collectiveTitle){
+                    collectiveTitle = "---";
+                }
+            });
+
+            $("txtTitle").value = collectiveTitle;
         }
     }
 
     onTitleTextChanged(){
-        if (currentPanel.selection.selectedNodes[0]){
-            currentPanel.selection.selectedNodes[0].node.setTitle($("txtTitle").value);
+        if (currentPanel.selection.selectedNodes.length){
+            let newTitle = $("txtTitle").value;
+            currentPanel.selection.selectedNodes.forEach((uiNode, i) => {
+                uiNode.node.setTitle(newTitle);
+            });
             currentPanel.display.draw();
         }
     }
