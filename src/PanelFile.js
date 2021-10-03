@@ -50,6 +50,25 @@ class PanelFile{
     }
 
     _writeContent(){
+        let graph = this.panel.graph;
+        this.content = "";
+        let node = this.panel.autoLayout.hal.headUINode.node;
+        this.content = this._writeContentNode(graph, node);
+    }
 
+    _writeContentNode(graph, node){
+        let title = node.getTitle();
+        //start tag
+        let content = title;
+        //inner html
+        let childList = graph.getNeighborsFrom(node);
+        childList.forEach((childNode, i) => {
+            content += this._writeContentNode(graph, childNode);
+        });
+        //end tag
+        if (title.startsWith("<")){
+            content += title.slice(0,1) + "/" + title.slice(1);
+        }
+        return content;
     }
 }

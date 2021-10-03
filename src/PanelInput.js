@@ -87,8 +87,10 @@ class PanelInput{
         let gv = this.space.convertPosition(cvsTL.reverseSubtract(e));
         let node = new Node();
         this.panel.graph.addNode(node);
+        //this.panel.nodeList = [];//test code
         let newNodes = this.panel.syncFromGraph();
         let uiNode = newNodes[0];
+        //this.panel.autoLayout.autoLayout();
         uiNode.setPosition(gv);
         this.panel.state.mouseOverNode = uiNode;
         this.panel.input.setSelectedNode(uiNode, e.shiftKey);

@@ -23,7 +23,7 @@ function initialize(){
     graph.addEdge(node1,node2);
     //Init panel
     currentPanel = new Panel(graph, canvas);
-    currentPanel.file.readFile();
+    //currentPanel.file.readFile();
     currentPanel.syncFromGraph();
     currentPanel.autoLayout.autoLayout();
     currentPanel.display.draw();
