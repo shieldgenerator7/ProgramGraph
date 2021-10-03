@@ -83,6 +83,14 @@ class PanelFile{
                 if (afterTagEnd.length > 0){
                     title = title.split(">")[0].trim()+">";
                 }
+                if (title.includes(" ")){
+                    let idx = title.indexOf(" ");
+                    let eL = (title.endsWith("/>")) ?"/>" :">";
+                    let attr = title.slice(idx+1, title.length-eL.length);
+                    title = title.slice(0, idx)+eL;
+                    //
+                    newNode.attributes.push(attr);
+                }
                 newNode.setTitle(title);
                 graph.addNode(newNode);
                 if (parentNode){
@@ -122,12 +130,26 @@ class PanelFile{
             let node = headUINode.node;
             this.content += this._writeContentNode(graph, node);
         });
+        this.content.trim();
     }
 
     _writeContentNode(graph, node){
         let title = node.getTitle().trim();
         //start tag
-        let content = title;
+        let content = "\n";
+        if (node.attributes.length > 0){
+            let eL = (title.endsWith("/>")) ?"/>" :">";
+            content += title.slice(0, title.length-(eL.length))+" ";
+            node.attributes.forEach((attr, i) => {
+                content += attr+" ";
+            });
+            content = content.trimEnd();
+            content += eL;
+        }
+        else{
+            content += title;
+        }
+        let prevContentLength = content.length;
         //inner html
         let childList = graph.getNeighborsFrom(node);
         childList.forEach((childNode, i) => {
@@ -135,6 +157,9 @@ class PanelFile{
         });
         //end tag
         if (title.startsWith("<") && !this.isTagSingular(title)){
+            if (prevContentLength != content.length){
+                content += "\n";
+            }
             content += title.slice(0,1) + "/" + title.slice(1);
         }
         return content;
