@@ -7,15 +7,15 @@ class PanelFile{
         this.content = undefined;
     }
 
-    readFile(filename){
-        this.fileName = filename ?? this.fileName;
+    readFile(){
         //read file
         //2021-10-02: copied from SyllableSight
         const input = document.createElement('input');
         input.type = "file";
         input.accept = ".html";
         input.multiple = false;
-        let readFunc = (content) => {
+        let readFunc = (filename, content) => {
+            this.fileName = filename;
             this.content = content;
             this._readContent();
             this.panel.nodeList = [];
@@ -39,7 +39,7 @@ class PanelFile{
                             reader.readAsText(file)
                         })).then(content => {
                             //Turn the content string into a graph
-                            readFunc(content);
+                            readFunc(file.name, content);
                             //Log it
                             console.log("file imported: ", file.name);
                             //Update counter
@@ -89,7 +89,7 @@ class PanelFile{
         //download content
         window.download(
             this.content,
-            "index" + '.html',
+            this.fileName,
             'data:application/txt'
         )
     }
