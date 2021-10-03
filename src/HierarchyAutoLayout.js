@@ -45,7 +45,7 @@ class HierarchyAutoLayout{
         let buffer = new Vector2(70, 70);
         let v = new Vector2(1,1);
         for(let i = 0; i < this.rows.length; i++){
-            v.y = (i+1) * buffer.y;
+            v.y = this.panel.spaceWorld.size.y - ((i+1) * buffer.y);
             for(let j = 0; j < this.rows[i].length; j++){
                 v.x = (j+1) * buffer.x;
                 this.rows[i][j].setPosition(v.scale(1));
