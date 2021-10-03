@@ -39,7 +39,7 @@ class UINode{
     setPosition(v){
         this.position.x = v.x;
         this.position.y = v.y;
-        this._recalculateCache();
+        this.syncWithNode();
     }
 
     setSize(v){
