@@ -22,7 +22,7 @@ class PanelFile{
         input.multiple = false;
         let readFunc = (filename, content) => {
             this.fileName = filename;
-            this.content = content;
+            this.content = content.trim();
             this._readContent();
             this.panel.nodeList = [];
             this.panel.edgeList = [];
@@ -130,7 +130,7 @@ class PanelFile{
             let node = headUINode.node;
             this.content += this._writeContentNode(graph, node, -1);
         });
-        this.content.trim();
+        this.content = this.content.trim();
     }
 
     _writeContentNode(graph, node, level){
