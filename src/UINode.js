@@ -2,7 +2,7 @@
 
 let WIDTH_MIN = 50;
 let WIDTH_BUFFER = 5;
-let HEIGHT_MIN = 25;
+let HEIGHT_MIN = 35;
 let HEIGHT_BUFFER = 5;
 
 class UINode{
@@ -33,8 +33,10 @@ class UINode{
             )
             + (WIDTH_BUFFER*2);
         this.size.x = Math.max(maxWidth, WIDTH_MIN);
-        this.size.y = this.textList.reduce((a,b)=>a+b.size.y,HEIGHT_MIN);
+        this.size.y = (this.position.y - this.textList.at(-1).position.y) + HEIGHT_BUFFER;
+        this.size.y = Math.max(this.size.y, HEIGHT_MIN);
         this._recalculateCache();
+        //Left align
         let leftPosition = this.topLeft.x + WIDTH_BUFFER;
         this.textList
         .filter(text => text.align == "left")

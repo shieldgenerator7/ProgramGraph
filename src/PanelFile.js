@@ -79,9 +79,11 @@ class PanelFile{
             }
             else{
                 let newNode = new Node();
-                let afterTagEnd = title.split(">")[1].trim();
-                if (afterTagEnd.length > 0){
-                    title = title.split(">")[0].trim()+">";
+                let split = title.split(">");
+                let afterTagEnd = "";
+                if (split[1] && split[1].length > 0){
+                    afterTagEnd = split[1].trim();
+                    title = split[0].trim()+">";
                 }
                 if (title.includes(" ")){
                     let idx = title.indexOf(" ");
@@ -89,7 +91,7 @@ class PanelFile{
                     let attr = title.slice(idx+1, title.length-eL.length);
                     title = title.slice(0, idx)+eL;
                     //
-                    newNode.addAttributesFromString(attr," ");
+                    newNode.addAttributesFromString(attr,/[ \n]+/);
                 }
                 newNode.setTitle(title);
                 graph.addNode(newNode);

@@ -111,6 +111,7 @@ class Panel{
             let newTitle = $("txtTitle").value;
             currentPanel.selection.selectedNodes.forEach((uiNode, i) => {
                 uiNode.node.setTitle(newTitle);
+                uiNode.syncWithNode();
             });
             currentPanel.display.draw();
         }
@@ -122,6 +123,7 @@ class Panel{
             currentPanel.selection.selectedNodes.forEach((uiNode, i) => {
                 uiNode.node.clearAttributes();
                 uiNode.node.addAttributesFromString(newAttrs,"\n");
+                uiNode.syncWithNode();
             });
             currentPanel.display.draw();
         }
