@@ -2,6 +2,7 @@
 
 let WIDTH_MIN = 50;
 let WIDTH_BUFFER = 5;
+let HEIGHT_BUFFER = 5;
 
 class UINode{
     constructor(node){
@@ -30,7 +31,8 @@ class UINode{
         let maxWidth = textSize.x + (WIDTH_BUFFER*2);
         this.size.x = Math.max(maxWidth, WIDTH_MIN);
         this.text.position.x = this.position.x - (textSize.x/2);
-        this.text.position.y = this.position.y - (textSize.y/2);
+        this.text.position.y =
+            this.position.y - ((this.text.row+1) * (textSize.y+HEIGHT_BUFFER));
         this._recalculateCache();
     }
 
@@ -49,7 +51,7 @@ class UINode{
     _recalculateCache(){
         this.halfSize = this.size.scale(0.5);
         this.topLeft.x = this.position.x - this.halfSize.x;
-        this.topLeft.y = this.position.y + this.halfSize.y;
+        this.topLeft.y = this.position.y;
         this.onChange?.();
     }
 
