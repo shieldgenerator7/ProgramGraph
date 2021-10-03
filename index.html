@@ -3,9 +3,20 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body oncontextmenu="return false;">
-    <canvas id="cvsGraph"
-        style="width:100%; height:100%; background-color:#EEEEEE;"
-    ></canvas>
+    <div class="panel">
+        <div class="sidebar">
+            <input id="txtTitle" class="txtEdit"
+                type="text"
+            ></input>
+            <br>
+            <input id="txtAttributes" class="txtEdit"
+                type="text"
+            ></input>
+        </div>
+        <div class="divCanvas">
+            <canvas id="cvsGraph"></canvas>
+        </div>
+    </div>
 </body>
 <script src="src/Vector2.js"></script>
 <script src="src/Graph.js"></script>
