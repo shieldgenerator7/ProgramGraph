@@ -85,15 +85,33 @@ class PanelInput{
 
     onMouseDoubleClick(e){
         let gv = this.space.convertPosition(cvsTL.reverseSubtract(e));
-        let node = new Node();
-        this.panel.graph.addNode(node);
-        //this.panel.nodeList = [];//test code
-        let newNodes = this.panel.syncFromGraph();
-        let uiNode = newNodes[0];
-        //this.panel.autoLayout.autoLayout();
-        uiNode.setPosition(gv);
-        this.panel.state.mouseOverNode = uiNode;
-        this.panel.input.setSelectedNode(uiNode, e.shiftKey);
+        if (this.panel.state.mouseOverNode){
+            //Show/Hide Node Children
+            let childrenUINodes = this.panel.graph.getNeighborsFrom(
+                this.panel.state.mouseOverNode.node
+            )
+            .map(
+                node => this.panel.nodeList[node.id]
+            );
+            if (childrenUINodes.length > 0){
+                let visible = childrenUINodes[0].visible;
+                this.panel.control.expandNodeHierarchy(
+                    this.panel.state.mouseOverNode,
+                    !visible
+                );
+                this.panel.autoLayout.autoLayout();
+            }
+        }
+        else{
+            //Add Node
+            let node = new Node();
+            this.panel.graph.addNode(node);
+            let newNodes = this.panel.syncFromGraph();
+            let uiNode = newNodes[0];
+            uiNode.setPosition(gv);
+            this.panel.state.mouseOverNode = uiNode;
+            this.panel.input.setSelectedNode(uiNode, e.shiftKey);
+        }
         this.panel.display.draw();
     }
 

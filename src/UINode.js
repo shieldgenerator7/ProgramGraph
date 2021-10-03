@@ -14,6 +14,7 @@ class UINode{
             row: 0,
             position: new Vector2(0,0),
         }
+        this.visible = true;
         //dependent variables
         this.topLeft = new Vector2(0,0);
         this.halfSize = new Vector2(0,0);

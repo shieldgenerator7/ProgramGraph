@@ -29,6 +29,9 @@ class HierarchyAutoLayout{
         let childrenUINodes = this.graph.getNeighborsFrom(parentUINode.node)
         .map(
             node => this.panel.nodeList[node.id]
+        )
+        .filter(
+            uiNode => uiNode.visible
         );
         if (childrenUINodes.length > 0){
             if (!this.rows[rowId]){

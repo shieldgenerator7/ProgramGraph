@@ -17,4 +17,15 @@ class PanelControl{
             this.panel.autoLayout.autoLayout();
         }
     }
+
+    expandNodeHierarchy(uiNode, expand){
+        let childrenUINodes = this.panel.graph.getNeighborsFrom(uiNode.node)
+        .map(
+            node => this.panel.nodeList[node.id]
+        );
+        childrenUINodes.forEach((childUINode, i) => {
+            childUINode.visible = expand;
+            this.expandNodeHierarchy(childUINode, expand);
+        });
+    }
 }

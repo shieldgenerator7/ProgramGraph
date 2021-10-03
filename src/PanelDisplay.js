@@ -37,6 +37,7 @@ class PanelDisplay{
         this.ctx.strokeStyle = "#000000";
         for(let edge of this.panel.edgeList){
             if (!edge){continue;}
+            if (!edge.from.visible || !edge.to.visible){continue;}
             this.ctx.beginPath();
             this.ctx.moveTo(
                 this.space.convertX(edge.from.position.x),
@@ -51,6 +52,7 @@ class PanelDisplay{
         //draw nodes
         for(let node of this.panel.nodeList){
             if (!node){continue;}
+            if (!node.visible){continue;}
             //Special styling based on panel state
             this.ctx.strokeStyle = "#000000";
             this.ctx.fillStyle = "#AAAAAA";
