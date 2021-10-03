@@ -18,7 +18,12 @@ canvas {
     background-color: #EEEEEE;
 }
 
-input{    
+input {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+p {
     margin-bottom: 10px;
 }
 
