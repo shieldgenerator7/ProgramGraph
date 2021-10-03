@@ -3,11 +3,14 @@
 let data = new Data();
 let currentPanel;
 let inputManager;
+let cvsTL;
 function initialize(){
     //Update canvas size
     let canvas = $("cvsGraph");
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
+    let rectCVS = canvas.getBoundingClientRect();
+    cvsTL = new Vector2(rectCVS.left, rectCVS.top);
     //Init InputManager
     inputManager = new InputManager();
     //Init data
