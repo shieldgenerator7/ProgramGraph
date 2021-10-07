@@ -37,3 +37,8 @@ function registerTextOnChange(txt, changeFunc){
     txt.onpaste = changeFunc;
     txt.oninput = changeFunc;
 }
+
+//2021-10-05: copied from https://stackoverflow.com/a/3261380/2336212
+function isEmpty(str) {
+    return (!str || str.length === 0 );
+}

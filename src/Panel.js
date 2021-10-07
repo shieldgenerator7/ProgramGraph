@@ -13,6 +13,7 @@ class Panel{
         this.display = new PanelDisplay(this);
         this.input = new PanelInput(this);
         this.control = new PanelControl(this);
+        this.verify = new PanelVerify(this);
         this.autoLayout = new PanelAutoLayout(this);
         this.file = new PanelFile(this);
         //For containing processing and input variables
@@ -25,6 +26,11 @@ class Panel{
         //Panel Settings, unique per panel type
         this.settings = {
             hierarchy: true,
+            allowMultipleHeadNodes: true,
+            allowMultipleParents: false,
+            allowLoops: false,
+            allowEdgeSiblings: false,
+            orderedChildren: true,
         }
         //
         //Node and Edges

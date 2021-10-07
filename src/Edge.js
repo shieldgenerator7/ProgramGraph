@@ -5,5 +5,8 @@ class Edge{
         this.id = getNextId();
         this.fromId = from.id;
         this.toId = to.id;
+        this.label = "";
+        this.lblFrom = "";
+        this.lblTo = "";
     }
 }

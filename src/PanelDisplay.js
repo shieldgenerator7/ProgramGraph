@@ -48,6 +48,17 @@ class PanelDisplay{
                 this.space.convertY(edge.to.position.y)
             );
             this.ctx.stroke();
+            //Text
+            this.ctx.fillStyle = "#000000";
+            edge.textList.forEach(text => {
+                text.position = edge.getPosition(text.percent);
+                let textPos = this.space.convertPosition(text.position);
+                this.ctx.fillText(
+                    text.str,
+                    textPos.x,
+                    textPos.y
+                );
+            });
         }
         //draw nodes
         for(let node of this.panel.nodeList){

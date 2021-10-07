@@ -13,6 +13,7 @@ class PanelControl{
             );
         }
         this.panel.syncFromGraph();
+        this.panel.verify.validify();
         if (this.panel.settings.hierarchy){
             this.panel.autoLayout.autoLayout();
         }

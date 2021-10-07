@@ -69,4 +69,9 @@ class Graph{
             e => this.getNode(e.fromId)
         );
     }
+    getEdgesFrom(from){
+        return this.edgeList.filter(
+            e => e.fromId == from.id
+        );
+    }
 }
