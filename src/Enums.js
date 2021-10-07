@@ -1,0 +1,11 @@
+//ENUMS
+
+//Graph types
+const GRAPH_VANILLA = 1000;
+const GRAPH_CLASS = 1001;
+const GRAPH_OBJECT = 1002;
+const GRAPH_METHOD = 1003;
+const GRAPH_STORY = 1004;
+const GRAPH_UPDATE = 1005;
+const GRAPH_PROJECT = 1006;
+const GRAPH_HTML = 1007;
