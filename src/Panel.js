@@ -115,9 +115,9 @@ class Panel{
     onTitleTextChanged(){
         if (currentPanel.selection.selectedNodes.length){
             let newTitle = $("txtTitle").value;
-            currentPanel.selection.selectedNodes.forEach((uiNode, i) => {
-                uiNode.node.setTitle(newTitle);
-                uiNode.syncWithNode();
+            currentPanel.selection.selectedNodes.map(uiNode=>uiNode.node)
+            .forEach(node => {
+                node.setTitle(newTitle);
             });
             currentPanel.display.draw();
         }
@@ -126,10 +126,10 @@ class Panel{
     onAttributeTextChanged(){
         if (currentPanel.selection.selectedNodes.length){
             let newAttrs = $("txtAttributes").value;
-            currentPanel.selection.selectedNodes.forEach((uiNode, i) => {
-                uiNode.node.clearAttributes();
-                uiNode.node.addAttributesFromString(newAttrs,"\n");
-                uiNode.syncWithNode();
+            currentPanel.selection.selectedNodes.map(uiNode=>uiNode.node)
+            .forEach(node => {
+                node.clearAttributes();
+                node.addAttributesFromString(newAttrs,"\n");
             });
             currentPanel.display.draw();
         }

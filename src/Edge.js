@@ -8,5 +8,12 @@ class Edge{
         this.label = "";
         this.lblFrom = "";
         this.lblTo = "";
+
+        this.onChange = undefined;
+    }
+
+    setLabel(label){
+        this.label = label;
+        this.onChange?.();
     }
 }

@@ -20,6 +20,7 @@ function initialize(){
     currentPanel.file.content="<html><body><p style='width:100px;'>Lorem ipsum</p><div id='divImg'><img src='icon.png'/></div></body></html>";
     currentPanel.file._readContent();
     currentPanel.syncFromGraph();
+    currentPanel.verify.validify();
     currentPanel.autoLayout.autoLayout();
     currentPanel.display.draw();
 }

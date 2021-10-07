@@ -25,9 +25,11 @@ class Node{
         let attrs = strAttrs.split(separator);
         attrs.map(str => str.trim());
         this.attributes = this.attributes.concat(attrs);
+        this.onChange?.();
     }
 
     clearAttributes(){
         this.attributes = [];
+        this.onChange?.();
     }
 }

@@ -6,6 +6,9 @@ class UIEdge{
         this.from = fromUI;
         this.to = toUI;
         this.textList = [];
+
+        this.edge.onChange = ()=>this.syncWithEdge();
+        this.syncWithEdge();
     }
 
     syncWithEdge(){
