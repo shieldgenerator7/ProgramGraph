@@ -85,8 +85,6 @@ function HierarchyPanelFactory(panel){
     //Autolayout
     //
     this = panel.autoLayout;
-    this.panel = panel;
-    this.graph = this.panel.graph;
     this.headUINodeList = [];
     this.rows = [];
 
