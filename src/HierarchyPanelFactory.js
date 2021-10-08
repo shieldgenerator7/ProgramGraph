@@ -6,10 +6,10 @@ function HierarchyPanelFactory(panel){
     //
     panel.settings = {
         hierarchy: true,
-        allowMultipleHeadNodes: false,
-        allowMultipleParents: false,
-        allowLoops: false,
-        allowEdgeSiblings: false,
+        allowMultipleHeadNodes: false,//TODO: implement this option
+        allowMultipleParents: false,//TODO: implement this option
+        allowLoops: false,//TODO: implement this option
+        allowEdgeSiblings: false,//TODO: implement this option
         orderedChildren: false,
     }
 
