@@ -15,6 +15,8 @@ class Panel{
             mouseClick: false,
             mouseRightClick: false,
             tempEdgeList: [],
+            originalCV: new Vector2(0,0),
+            originalGraphOffset: new Vector2(0,0),
         };
         //Panel Settings, unique per panel type
         this.settings = {

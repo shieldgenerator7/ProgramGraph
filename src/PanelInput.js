@@ -7,13 +7,24 @@ class PanelInput{
     }
 
     onMouseMove(e){
-        let gv = this.space.convertPosition(cvsTL.reverseSubtract(e));
+        let cv = cvsTL.reverseSubtract(e);
+        let gv = this.space.convertPosition(cv);
         if (this.panel.state.mouseClick){
             //Drag nodes
-            for(let node of this.panel.selection.selectedNodes){
-                node.setPosition(gv.add(node.mouseOffset));
-                node.autoPosition = false;
+            if (this.panel.state.mouseOverNode){
+                for(let node of this.panel.selection.selectedNodes){
+                    node.setPosition(gv.add(node.mouseOffset));
+                    node.autoPosition = false;
+                }
             }
+            //Scroll screen
+            else{
+                let origGV = this.space.convertPosition(this.panel.state.originalCV);
+                let dGV = gv.subtract(origGV);
+                this.panel.spaceWorld.offset =
+                this.panel.state.originalGraphOffset.add(dGV);
+            }
+            //Redraw
             this.panel.display.draw();
         }
         else{
@@ -42,7 +53,8 @@ class PanelInput{
     }
 
     onMouseDown(e){
-        let gv = this.space.convertPosition(cvsTL.reverseSubtract(e));
+        let cv = cvsTL.reverseSubtract(e);
+        let gv = this.space.convertPosition(cv);
         if (this.panel.state.mouseOverNode){
             if (e.which == 3){//RMB
                 //Start right click drag
@@ -72,8 +84,12 @@ class PanelInput{
             }
         }
         else{
+            this.panel.state.mouseClick = true;
             //Deselect all nodes
             this.panel.selection.selectNode();
+            //Prepare for scrolling
+            this.panel.state.originalCV = cv;
+            this.panel.state.originalGraphOffset = this.panel.spaceWorld.offset;
         }
         this.panel.display.draw();
     }
