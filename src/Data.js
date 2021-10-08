@@ -6,8 +6,8 @@ class Data{
         this.nextId = 0;
     }
 
-    newGraph(){
-        let graph = new Graph();
+    newGraph(type){
+        let graph = new Graph(type);
         this.graphList.push(graph);
         return graph;
     }

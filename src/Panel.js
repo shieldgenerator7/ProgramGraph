@@ -48,7 +48,9 @@ class Panel{
             this.onAttributeTextChanged
         );
         //
-        this.syncFromGraph();
+        if (this.graph){
+            this.syncFromGraph();
+        }
     }
 
     //Update the list of nodes and edges from the graph
@@ -114,25 +116,27 @@ class Panel{
     }
 
     onTitleTextChanged(){
-        if (currentPanel.selection.selectedNodes.length){
+        let panel = panelManager.currentPanel;
+        if (panel.selection.selectedNodes.length){
             let newTitle = $("txtTitle").value;
-            currentPanel.selection.selectedNodes.map(uiNode=>uiNode.node)
+            panel.selection.selectedNodes.map(uiNode=>uiNode.node)
             .forEach(node => {
                 node.setTitle(newTitle);
             });
-            currentPanel.display.draw();
+            panel.display.draw();
         }
     }
 
     onAttributeTextChanged(){
-        if (currentPanel.selection.selectedNodes.length){
+        let panel = panelManager.currentPanel;
+        if (panel.selection.selectedNodes.length){
             let newAttrs = $("txtAttributes").value;
-            currentPanel.selection.selectedNodes.map(uiNode=>uiNode.node)
+            panel.selection.selectedNodes.map(uiNode=>uiNode.node)
             .forEach(node => {
                 node.clearAttributes();
                 node.addAttributesFromString(newAttrs,"\n");
             });
-            currentPanel.display.draw();
+            panel.display.draw();
         }
     }
 }

@@ -10,25 +10,25 @@ class InputManager{
 
     onMouseMove(e){
         if (inputManager.isMouseOnPanel(e)){
-            currentPanel.input.onMouseMove(e);
+            panelManager.currentPanel.input.onMouseMove(e);
         }
     }
 
     onMouseDown(e){
         if (inputManager.isMouseOnPanel(e)){
-            currentPanel.input.onMouseDown(e);
+            panelManager.currentPanel.input.onMouseDown(e);
         }
     }
 
     onMouseUp(e){
         if (inputManager.isMouseOnPanel(e)){
-            currentPanel.input.onMouseUp(e);
+            panelManager.currentPanel.input.onMouseUp(e);
         }
     }
 
     onMouseDoubleClick(e){
         if (inputManager.isMouseOnPanel(e)){
-            currentPanel.input.onMouseDoubleClick(e);
+            panelManager.currentPanel.input.onMouseDoubleClick(e);
         }
     }
 

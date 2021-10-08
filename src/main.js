@@ -1,9 +1,9 @@
 "use strict";
 
 let data = new Data();
-let currentPanel;
-let inputManager;
 let cvsTL;
+let inputManager;
+let panelManager;
 function initialize(){
     //Update canvas size
     let canvas = $("cvsGraph");
@@ -13,17 +13,11 @@ function initialize(){
     cvsTL = new Vector2(rectCVS.left, rectCVS.top);
     //Init InputManager
     inputManager = new InputManager();
-    //Init data
-    let graph = data.newGraph();
-    //Init panel
-    currentPanel = new Panel(graph, canvas);
-    HierarchyPanelFactory(currentPanel);
-    HTMLPanelFactory(currentPanel);
-    currentPanel.file.content="<html><body><p style='width:100px;'>Lorem ipsum</p><div id='divImg'><img src='icon.png'/></div></body></html>";
-    currentPanel.file._readContent();
-    currentPanel.syncFromGraph();
-    currentPanel.verify.validify();
-    currentPanel.autoLayout.autoLayout();
-    currentPanel.display.draw();
+    //Init PanelManager
+    panelManager = new PanelManager();
+    panelManager.openFile(
+        GRAPH_HTML,
+        "<html><body><p style='width:100px;'>Lorem ipsum</p><div id='divImg'>dorem olem reum<img src='icon.png'/></div></body></html>"
+    );
 }
 initialize();

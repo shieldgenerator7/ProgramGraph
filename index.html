@@ -18,10 +18,10 @@
                 Ctrl click: Multiselect Hierarchy
             </p>
             <span>
-                <button type="button" onclick="currentPanel.file.readFile();">
+                <button type="button" onclick="panelManager.currentPanel.file.readFile();">
                     Import HTML
                 </button>
-                <button type="button" onclick="currentPanel.file.writeFile();">
+                <button type="button" onclick="panelManager.currentPanel.file.writeFile();">
                     Export HTML
                 </button>
             </span>
@@ -55,8 +55,9 @@
 <script src="src/PanelVerify.js"></script>
 <script src="src/PanelAutoLayout.js"></script>
 <script src="src/PanelFile.js"></script>
-<script src="src/InputManager.js"></script>
 <script src="src/Panel.js"></script>
+<script src="src/InputManager.js"></script>
+<script src="src/PanelManager.js"></script>
 <script src="src/HierarchyPanelFactory.js"></script>
 <script src="src/HTMLPanelFactory.js"></script>
 <script src="src/main.js"></script>

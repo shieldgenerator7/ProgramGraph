@@ -21,7 +21,7 @@ class PanelFile{
             this.panel.nodeList = [];
             this.panel.edgeList = [];
             this.panel.syncFromGraph();
-            currentPanel.verify.validify();
+            this.panel.verify.validify();
             this.panel.autoLayout.autoLayout();
             this.panel.display.draw();
         };

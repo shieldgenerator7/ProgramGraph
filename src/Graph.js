@@ -1,8 +1,9 @@
 "use strict";
 
 class Graph{
-    constructor(){
+    constructor(type){
         this.id = getNextId();
+        this.type = type;
         this.nodeList = [];
         this.edgeList = [];
     }

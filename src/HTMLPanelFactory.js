@@ -55,7 +55,7 @@ function HTMLPanelFactory(panel){
     }
 
     panel.file._readTitleList = function(list){
-        let graph = new Graph();
+        let graph = data.newGraph(GRAPH_HTML);
         let parentNode = undefined;
         for (let i = 0; i < list.length; i++){
             let title = list[i];
