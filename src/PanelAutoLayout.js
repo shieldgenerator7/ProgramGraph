@@ -6,26 +6,25 @@ class PanelAutoLayout{
     }
 
     autoLayout(){
-        if (this.panel.settings.hierarchy){
-            this.autoLayoutHierarchy();
-        }
-        else{
-            let columns = this.panel.canvas.clientWidth / 100;
-            let v = new Vector2(1,1);
-            for(let node of this.panel.nodeList){
-                if (!node){continue;}
-                if (!node.autoPosition){continue;}
-                node.setPosition(v.scale(70));
-                v.x++;
-                if (v.x > columns){
-                    v.x = 1;
-                    v.y++;
-                }
-            }
-        }
+        this.prepare();
+        this.positionNodes();
     }
 
-    autoLayoutHierarchy(){
-        this.hal = new HierarchyAutoLayout(this.panel);
+    prepare(){
+        this.columns = this.panel.canvas.clientWidth / 100;
+    }
+
+    positionNodes(){
+        let v = new Vector2(1,1);
+        for(let node of this.panel.nodeList){
+            if (!node){continue;}
+            if (!node.autoPosition){continue;}
+            node.setPosition(v.scale(70));
+            v.x++;
+            if (v.x > this.columns){
+                v.x = 1;
+                v.y++;
+            }
+        }
     }
 }
