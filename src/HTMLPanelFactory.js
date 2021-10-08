@@ -104,7 +104,7 @@ function HTMLPanelFactory(panel){
     panel.file._writeContent = function(){
         let graph = that.panel.graph;
         that.content = "";
-        that.panel.autoLayout.hal.headUINodeList.forEach((headUINode, i) => {
+        that.panel.autoLayout.headUINodeList.forEach((headUINode, i) => {
             let node = headUINode.node;
             that.content += that._writeContentNode(graph, node, -1);
         });

@@ -90,7 +90,7 @@ function HierarchyPanelFactory(panel){
 
     panel.autoLayout.findHeadUINodes = function(){
         return that.panel.nodeList.filter(
-            uiNode => that.graph.getNeighborsTo(uiNode.node).length == 0
+            uiNode => that.panel.graph.getNeighborsTo(uiNode.node).length == 0
         );
     }
 
@@ -104,7 +104,7 @@ function HierarchyPanelFactory(panel){
         });
     }
     panel.autoLayout._populateRows = function(parentUINode, rowId){
-        let childrenUINodes = that.graph.getNeighborsFrom(parentUINode.node)
+        let childrenUINodes = that.panel.graph.getNeighborsFrom(parentUINode.node)
         .map(
             node => that.panel.nodeList[node.id]
         )
@@ -139,7 +139,7 @@ function HierarchyPanelFactory(panel){
                 if (uiNode.autoPosition){
                     if (i > 0){
                         let parentUINode = that.panel.nodeList[
-                            that.graph.getNeighborsTo(uiNode.node)[0].id
+                            that.panel.graph.getNeighborsTo(uiNode.node)[0].id
                         ];
                         parentUINode.childPosition.x += uiNode.halfSize.x;
                         uiNode.setPosition(parentUINode.childPosition);

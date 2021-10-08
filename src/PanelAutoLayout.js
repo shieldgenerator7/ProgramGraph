@@ -3,7 +3,6 @@
 class PanelAutoLayout{
     constructor(panel){
         this.panel = panel;
-        this.graph = panel.graph;
     }
 
     autoLayout(){
