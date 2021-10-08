@@ -9,13 +9,6 @@ class Panel{
         this.spaceCanvas.flip.y = -1;
         this.spaceWorld.setOtherSpace(this.spaceCanvas);
         this.spaceCanvas.setOtherSpace(this.spaceWorld);
-        this.selection = new Selection(this);
-        this.display = new PanelDisplay(this);
-        this.input = new PanelInput(this);
-        this.control = new PanelControl(this);
-        this.verify = new PanelVerify(this);
-        this.autoLayout = new PanelAutoLayout(this);
-        this.file = new PanelFile(this);
         //For containing processing and input variables
         this.state = {
             mouseOverNode: undefined,
@@ -25,13 +18,21 @@ class Panel{
         };
         //Panel Settings, unique per panel type
         this.settings = {
-            hierarchy: true,
+            hierarchy: false,
             allowMultipleHeadNodes: true,
-            allowMultipleParents: false,
-            allowLoops: false,
-            allowEdgeSiblings: false,
-            orderedChildren: true,
+            allowMultipleParents: true,
+            allowLoops: true,
+            allowEdgeSiblings: true,
+            orderedChildren: false,
         }
+        //Components
+        this.selection = new Selection(this);
+        this.display = new PanelDisplay(this);
+        this.input = new PanelInput(this);
+        this.control = new PanelControl(this);
+        this.verify = new PanelVerify(this);
+        this.autoLayout = new PanelAutoLayout(this);
+        this.file = new PanelFile(this);
         //
         //Node and Edges
         //

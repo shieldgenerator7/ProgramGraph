@@ -9,6 +9,7 @@ class PanelInput{
     onMouseMove(e){
         let gv = this.space.convertPosition(cvsTL.reverseSubtract(e));
         if (this.panel.state.mouseClick){
+            //Drag nodes
             for(let node of this.panel.selection.selectedNodes){
                 node.setPosition(gv.add(node.mouseOffset));
                 node.autoPosition = false;
@@ -16,6 +17,7 @@ class PanelInput{
             this.panel.display.draw();
         }
         else{
+            //Find mouse over node
             let prevMouseOverNode = this.panel.state.mouseOverNode;
             this.panel.state.mouseOverNode = undefined;
             for(let nodeIndex in this.panel.nodeList){
@@ -31,6 +33,7 @@ class PanelInput{
             }
         }
         if (this.panel.state.mouseRightClick){
+            //Update temp edges
             for(let tempEdge of this.panel.state.tempEdgeList){
                 tempEdge.to.position = gv;
             }
@@ -42,6 +45,7 @@ class PanelInput{
         let gv = this.space.convertPosition(cvsTL.reverseSubtract(e));
         if (this.panel.state.mouseOverNode){
             if (e.which == 3){//RMB
+                //Start right click drag
                 this.panel.state.mouseRightClick = true;
                 this.panel.input.setSelectedNode(
                     this.panel.state.mouseOverNode,
@@ -68,6 +72,7 @@ class PanelInput{
             }
         }
         else{
+            //Deselect all nodes
             this.panel.selection.selectNode();
         }
         this.panel.display.draw();
@@ -76,6 +81,7 @@ class PanelInput{
     onMouseUp(e){
         this.panel.state.mouseClick = false;
         if (this.panel.state.mouseOverNode){
+            //Add edges
             if (this.panel.state.mouseRightClick){
                 this.panel.state.tempEdgeList = [];
                 this.panel.control.addEdges();
@@ -84,6 +90,7 @@ class PanelInput{
             this.panel.display.draw();
         }
         else{
+            //Cancel add edges
             if (this.panel.state.mouseRightClick){
                 this.panel.state.tempEdgeList = [];
                 this.panel.state.mouseRightClick = false;
@@ -124,36 +131,16 @@ class PanelInput{
         this.panel.display.draw();
     }
 
+    //TODO: Allow deselecting a single node
     setSelectedNode(uiNode, shift, ctrl){
         if (!this.panel.selection.isNodeSelected(uiNode)){
-            if (shift){
+            if (shift || ctrl){
                 this.panel.selection.selectNodeToo(uiNode);
             }
             else{
                 this.panel.selection.selectNode(uiNode);
             }
         }
-        if (ctrl){
-            if (!shift){
-                this.panel.selection.selectNode(uiNode);
-            }
-            this.selectChildrenNodes(uiNode);
-        }
-    }
-
-    //TODO: make this method work even when there's loops
-    selectChildrenNodes(uiNode){
-        this.panel.selection.selectNodeToo(uiNode);
-        let childrenUINodes = this.panel.graph.getNeighborsFrom(uiNode.node)
-        .map(
-            node => this.panel.nodeList[node.id]
-        );
-        // .filter(
-        //     childUINode => !this.panel.selection.isNodeSelected(childUINode)
-        // );
-        childrenUINodes.forEach((childUINode, i) => {
-            this.selectChildrenNodes(childUINode);
-        });
     }
 
     calculateNodeOffsets(gv){
