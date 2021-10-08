@@ -136,13 +136,10 @@ class PanelInput{
         }
         else{
             //Add Node
-            let node = new Node();
-            this.panel.graph.addNode(node);
-            let newNodes = this.panel.syncFromGraph();
-            let uiNode = newNodes[0];
+            let uiNode = this.panel.control.addNode();            
             uiNode.setPosition(gv);
             this.panel.state.mouseOverNode = uiNode;
-            this.panel.input.setSelectedNode(uiNode, e.shiftKey, e.ctrlKey);
+            this.setSelectedNode(uiNode, e.shiftKey, e.ctrlKey);
         }
         this.panel.display.draw();
     }

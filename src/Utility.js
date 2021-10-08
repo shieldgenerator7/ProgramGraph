@@ -42,3 +42,14 @@ function registerTextOnChange(txt, changeFunc){
 function isEmpty(str) {
     return (!str || str.length === 0 );
 }
+
+//2021-10-07: copied from https://stackoverflow.com/a/20762713/2336212
+function mode(arr){
+    let result = arr.sort((a,b) =>
+          arr.filter(v => v===a).length
+        - arr.filter(v => v===b).length
+    )
+    .filter(v => v);
+    result = [...new Set(result)];
+    return result.pop();
+}

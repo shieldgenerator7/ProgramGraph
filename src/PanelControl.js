@@ -5,6 +5,14 @@ class PanelControl{
         this.panel = panel;
     }
 
+    addNode(){
+        let node = new Node();
+        this.panel.graph.addNode(node);
+        let newNodes = this.panel.syncFromGraph();
+        let uiNode = newNodes[0];
+        return uiNode;
+    }
+
     addEdges(){
         for (let node of this.panel.selection.selectedNodes){
             let edge = this.panel.graph.addEdge(

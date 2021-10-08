@@ -30,6 +30,13 @@ function HTMLPanelFactory(panel){
     //
     // Control
     //
+    panel.control._base_addNode = panel.control.addNode;
+    panel.control.addNode = function(){
+        let uiNode = panel.control._base_addNode();
+        let commonTitle = mode(panel.graph.nodeList.map(node=>node.title));
+        uiNode.node.setTitle(commonTitle);
+        return uiNode;
+    }
 
     //
     // Verify
