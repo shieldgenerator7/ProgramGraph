@@ -17,6 +17,8 @@ function initialize(){
     let graph = data.newGraph();
     //Init panel
     currentPanel = new Panel(graph, canvas);
+    HierarchyPanelFactory(currentPanel);
+    HTMLPanelFactory(currentPanel);
     currentPanel.file.content="<html><body><p style='width:100px;'>Lorem ipsum</p><div id='divImg'><img src='icon.png'/></div></body></html>";
     currentPanel.file._readContent();
     currentPanel.syncFromGraph();

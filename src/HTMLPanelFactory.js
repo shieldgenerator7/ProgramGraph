@@ -42,16 +42,16 @@ function HTMLPanelFactory(panel){
     //
     // File
     //
-    this = panel.file;
-    this.fileName = "index.html";
-    this.content = undefined;
+    let that = panel.file;
+    that.fileName = "index.html";
+    that.content = undefined;
 
     panel.file._readContent = function(){
-        let titleList = this.content.split("<");
+        let titleList = that.content.split("<");
         titleList = titleList
             .filter(title => title!=undefined && title.length>0)
             .map(title => "<"+title.trim() );
-        this._readTitleList(titleList);
+        that._readTitleList(titleList);
     }
 
     panel.file._readTitleList = function(list){
@@ -84,7 +84,7 @@ function HTMLPanelFactory(panel){
                 if (parentNode){
                     graph.addEdge(parentNode, newNode);
                 }
-                if (!this.isTagSingular(title)){
+                if (!that.isTagSingular(title)){
                     //go into subnodes with the new node
                     parentNode = newNode;
                 }
@@ -98,20 +98,20 @@ function HTMLPanelFactory(panel){
                 }
             }
         }
-        this.panel.graph = graph;
+        that.panel.graph = graph;
     }
 
-    _writeContent(){
-        let graph = this.panel.graph;
-        this.content = "";
-        this.panel.autoLayout.hal.headUINodeList.forEach((headUINode, i) => {
+    panel.file._writeContent = function(){
+        let graph = that.panel.graph;
+        that.content = "";
+        that.panel.autoLayout.hal.headUINodeList.forEach((headUINode, i) => {
             let node = headUINode.node;
-            this.content += this._writeContentNode(graph, node, -1);
+            that.content += that._writeContentNode(graph, node, -1);
         });
-        this.content = this.content.trim();
+        that.content = that.content.trim();
     }
 
-    _writeContentNode(graph, node, level){
+    panel.file._writeContentNode = function(graph, node, level){
         let title = node.getTitle().trim();
         let tabs = " ".repeat(Math.max(level,0)*4);
         //start tag
@@ -135,7 +135,7 @@ function HTMLPanelFactory(panel){
             content += this._writeContentNode(graph, childNode, level+1);
         });
         //end tag
-        if (title.startsWith("<") && !this.isTagSingular(title)){
+        if (title.startsWith("<") && !that.isTagSingular(title)){
             if (prevContentLength != content.length){
                 content += "\n"+tabs;
             }
@@ -144,7 +144,7 @@ function HTMLPanelFactory(panel){
         return content;
     }
 
-    isTagSingular(title){
+    panel.file.isTagSingular = function(title){
         if (title.startsWith("<!")
             || title.endsWith("/>")
         ){
