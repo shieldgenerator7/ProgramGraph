@@ -22,7 +22,7 @@ class PanelInput{
                 let origGV = this.space.convertPosition(this.panel.state.originalCV);
                 let dGV = gv.subtract(origGV);
                 this.panel.spaceWorld.offset =
-                this.panel.state.originalGraphOffset.add(dGV);
+                    this.panel.state.originalGraphOffset.add(dGV);
             }
             //Redraw
             this.panel.display.draw();
